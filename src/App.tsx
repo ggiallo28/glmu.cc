@@ -195,8 +195,7 @@ export default function App() {
         msCode: 'IT',
         vatNumber: '06158220654',
         name: 'MUCCIOLO GIANLUIGI',
-        address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly',
-        error: 'Offline connection (active registry details verified)'
+        address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'
       });
     } finally {
       setVatLoading(false);
@@ -405,7 +404,7 @@ export default function App() {
 
             <div className="md:col-span-8 text-stone-600 text-sm sm:text-base font-light space-y-4 leading-relaxed">
               <p className="text-stone-900 font-normal">
-                Scaleups accumulate technical decisions rapidly. By the time cost and entropy surface, critical path-dependent choices are already locked in and their original reasoning is lost.
+                Scaleups accumulate technical decisions rapidly. By the time cost and entropy take over, critical path-dependent choices have already been made, and their original reasoning is lost.
               </p>
               <p>
                 Addressing this requires <strong className="font-semibold text-stone-900">System Intelligence</strong>, a cohesive framework for technical reasoning that bridges the gap between Cloud, Data, and AI.
