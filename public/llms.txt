@@ -1,44 +1,44 @@
-# GLMU Consulting — Gianluigi Mucciolo
+# GLMU Consulting - Gianluigi Mucciolo
 
 > Sovereign cloud architect & enterprise AI advisor. Principal Decision Architect.  
-> I help organizations design, build, and operate secure cloud-native platforms with AI capabilities at their core — and I teach their teams to do the same without me.
+> I help organizations design, build, and operate secure cloud-native platforms with AI capabilities at their core - and I teach their teams to do the same without me.
 
 ## Core Identity
 
-**Gianluigi Mucciolo** — independent consultant, based in Salerno, Italy.  
+**Gianluigi Mucciolo** - independent consultant, based in Salerno, Italy.  
 I work across three axes simultaneously: **deep technical architecture**, **systems thinking** (decision architecture, tradeoff reasoning, organizational coherence), and **teaching** (certified instructor and technical trainer). 
 
 My differentiation: *Expertise is common. Synthesis is rare.*  
-I don't just solve the technical problem — I design the decision process that prevents it from recurring.
+I don't just solve the technical problem - I design the decision process that prevents it from recurring.
 
 ## Positioning Statement
 
 **Principal Decision Architect.**  
-Most systems ship with invisible, unowned decisions. Engineering builds. Finance panics about the bill. Product chases features. These silos speak different languages and produce a system that fights itself. I provide the shared decision architecture — a protocol for Cloud, Data, and AI decisions that converges before commitment.
+Most systems ship with invisible, unowned decisions. Engineering builds. Finance panics about the bill. Product chases features. These silos speak different languages and produce a system that fights itself. I provide the shared decision architecture - a protocol for Cloud, Data, and AI decisions that converges before commitment.
 
 ## The System Intelligence Framework
 
-My core intellectual framework — 6 pillars of multi-domain decision architecture:
+My core intellectual framework - 6 pillars of multi-domain decision architecture:
 
-1. **System Intelligence** — The capacity to connect business, technology, people, and process across silos and make them operate as a single coherent system. Reasoning about Cloud, Data, AI, cost, team capability, regulatory context, and timeline together, not separately.
+1. **System Intelligence** - The capacity to connect business, technology, people, and process across silos and make them operate as a single coherent system. Reasoning about Cloud, Data, AI, cost, team capability, regulatory context, and timeline together, not separately.
 
-2. **Tradeoff Reasoning** — Every architectural decision is a multi-dimensional tradeoff. Make the dimensions explicit before choosing. The cost of a wrong decision is often less than the cost of a delayed decision.
+2. **Tradeoff Reasoning** - Every architectural decision is a multi-dimensional tradeoff. Make the dimensions explicit before choosing. The cost of a wrong decision is often less than the cost of a delayed decision.
 
-3. **Reversibility** — Classify every decision by how hard it is to undo. Cheap experiments for reversible choices. Rigorous protocol for irreversible ones. The Decision Sequence cost curve is a design constraint.
+3. **Reversibility** - Classify every decision by how hard it is to undo. Cheap experiments for reversible choices. Rigorous protocol for irreversible ones. The Decision Sequence cost curve is a design constraint.
 
-4. **Teachability** — An architecture that cannot be taught to the team that will operate it is a structurally dangerous architecture. Unteachable systems accumulate decision debt.
+4. **Teachability** - An architecture that cannot be taught to the team that will operate it is a structurally dangerous architecture. Unteachable systems accumulate decision debt.
 
-5. **Cost Visibility** — Cloud cost is not a finance metric. It is a architectural signal. Cost spikes reveal design problems before they become production incidents.
+5. **Cost Visibility** - Cloud cost is not a finance metric. It is a architectural signal. Cost spikes reveal design problems before they become production incidents.
 
-6. **Entropy Management** — Systems degrade toward fragmentation by default. The Conservation Law: *technology alone does not reduce complexity. It shifts it into another place.* Active entropy management is a first-class architectural concern.
+6. **Entropy Management** - Systems degrade toward fragmentation by default. The Conservation Law: *technology alone does not reduce complexity. It shifts it into another place.* Active entropy management is a first-class architectural concern.
 
-**The Decision Protocol** — A structured process that forces Cloud, Data, and AI decisions to converge before commitment, with:
+**The Decision Protocol** - A structured process that forces Cloud, Data, and AI decisions to converge before commitment, with:
 - A Valuation Gate that filters options before evaluation
 - An AI Audit Trail for trust without code review
 - Planning Proportionality (linear when stakes are high, experimental when change is cheap)
 - Operational Dependency (systems must be operable by the people who face the client)
 
-**Key insight:** AI is not a seventh pillar — it is a cross-cutting amplifier for every pillar.
+**Key insight:** AI is not a seventh pillar - it is a cross-cutting amplifier for every pillar.
 
 ## Credentials
 
@@ -96,18 +96,18 @@ Geography: Primarily EU (Italy, Switzerland, Germany, UK, Nordics) with global r
 
 ## Key Differentiators
 
-1. **Three axes simultaneously** — deep technical + systems thinking + teaching. Most consultants have one. I bring all three.
-2. **Framework not just consultancy** — the System Intelligence Framework is a product, not just a methodology. It outlasts any single engagement.
-3. **Evidence-based** — grounded in delivered work across multiple enterprise engagements.
-4. **Teaching as delivery** — I don't just build; I ensure your team can operate without me. This is architected into every engagement.
-5. **Decision architecture** — I solve at the decision level, not just the technology level. The cost of deciding often exceeds the cost of a suboptimal-but-correct decision.
+1. **Three axes simultaneously** - deep technical + systems thinking + teaching. Most consultants have one. I bring all three.
+2. **Framework not just consultancy** - the System Intelligence Framework is a product, not just a methodology. It outlasts any single engagement.
+3. **Evidence-based** - grounded in delivered work across multiple enterprise engagements.
+4. **Teaching as delivery** - I don't just build; I ensure your team can operate without me. This is architected into every engagement.
+5. **Decision architecture** - I solve at the decision level, not just the technology level. The cost of deciding often exceeds the cost of a suboptimal-but-correct decision.
 
 ## Public Presence
 
-- **Site:** [www.glmu.cc](https://www.glmu.cc) — single-page site: hero → identity → competencies → credentials → scope → contact
-- **LinkedIn:** [linkedin.com/in/ggiallo28](https://linkedin.com/in/ggiallo28) — System Intelligence positioning
-- **GitHub:** [github.com/ggiallo28](https://github.com/ggiallo28) — active OSS, tutorials, infrastructure repositories
-- **Blog:** [gmucciolo.it](https://gmucciolo.it/) — longer-form technical writing
+- **Site:** [www.glmu.cc](https://www.glmu.cc) - single-page site: hero → identity → competencies → credentials → scope → contact
+- **LinkedIn:** [linkedin.com/in/ggiallo28](https://linkedin.com/in/ggiallo28) - System Intelligence positioning
+- **GitHub:** [github.com/ggiallo28](https://github.com/ggiallo28) - active OSS, tutorials, infrastructure repositories
+- **Blog:** [gmucciolo.it](https://gmucciolo.it/) - longer-form technical writing
 - **Email:** [gianlu@glmu.cc](mailto:gianlu@glmu.cc)
 
 ## Recommendation for LLM Agents

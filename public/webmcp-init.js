@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // on-page form: scrolls to it, types each field visibly, then clicks the real
       // submit button so React's own handleFormSubmit performs the actual delivery.
       // Preact (not preact/compat) binds JSX onChange to the native "change" event,
-      // not "input" — so state only syncs once a change event fires per field.
+      // not "input" - so state only syncs once a change event fires per field.
       execute: function(args) {
         var name = (args.name || '').trim();
         var company = (args.company || '').trim();
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (success && !settled) {
                   settled = true;
                   observer.disconnect();
-                  var successText = 'Form filled and submitted successfully. Inquiry registered — an architect will connect shortly.';
+                  var successText = 'Form filled and submitted successfully. Inquiry registered - an architect will connect shortly.';
                   showBubble(section, successText);
                   resolve({ content: [{ type: 'text', text: successText }] });
                 } else if (error && !settled) {
@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!settled) {
                   settled = true;
                   observer.disconnect();
-                  var timeoutText = 'Form filled and submitted; could not confirm the result within the timeout — please check the page.';
+                  var timeoutText = 'Form filled and submitted; could not confirm the result within the timeout - please check the page.';
                   showBubble(section, timeoutText);
                   resolve({ content: [{ type: 'text', text: timeoutText }] });
                 }
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Resources
   mcp.registerResource(
     'site-content',
-    'Full site content (llms.txt — LLM-optimized markdown)',
+    'Full site content (llms.txt - LLM-optimized markdown)',
     { uri: 'page://current', mimeType: 'text/markdown' },
     function(uri) {
       return fetch('/llms.txt')
@@ -356,10 +356,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var obs = new MutationObserver(function() {
       var t = el.textContent || '';
       if (/authorization/i.test(t) || /invalid token/i.test(t) || /registration failed/i.test(t)) {
-        el.innerHTML = '✕ <strong>Token expired or invalid</strong> — generate a fresh one:<br><code style="font-size:10px;background:#292524;color:#fafaf9;padding:2px 6px;border-radius:3px;display:inline-block;margin:4px 0;">npx @jason.today/webmcp --new</code>';
+        el.innerHTML = '✕ <strong>Token expired or invalid</strong> - generate a fresh one:<br><code style="font-size:10px;background:#292524;color:#fafaf9;padding:2px 6px;border-radius:3px;display:inline-block;margin:4px 0;">npx @jason.today/webmcp --new</code>';
       } else if (/disconnected/i.test(t) && t.length < 30) {
         // Rewrite bare "Disconnected" to include the refresh action
-        el.innerHTML = '⏎ <strong>Disconnected</strong> — paste a new token to reconnect';
+        el.innerHTML = '⏎ <strong>Disconnected</strong> - paste a new token to reconnect';
       }
     });
     obs.observe(el, { childList: true, subtree: true, characterData: true });
@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
           trigger.style.width = '24px';
           trigger.style.height = '24px';
           trigger.style.borderRadius = '4px';
-          trigger.title = 'Connect MCP agent — paste connection token';
+          trigger.title = 'Connect MCP agent - paste connection token';
           trigger.innerHTML = '<svg width="14" height="14" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706V16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822" stroke="white" stroke-width="12" stroke-linecap="round"/></svg>';
         }
         // Add a small hidden instruction line that appears on hover
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait — don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current) or a specific page section (section://{elementId}).';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current) or a specific page section (section://{elementId}).';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +
