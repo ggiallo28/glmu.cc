@@ -76,6 +76,8 @@ export default function App() {
     const handleScroll = () => {
       const viewportCenter = window.innerHeight / 2;
 
+      // Read phase: gather all geometry first, before any state writes invalidate layout.
+
       // 1. Competencies Section Scroll Sync
       let closestCompIdx: number | null = null;
       let minCompDistance = Infinity;
@@ -99,7 +101,6 @@ export default function App() {
       if (minCompDistance > window.innerHeight * 0.45) {
         closestCompIdx = null;
       }
-      setActiveCompetencyCard(closestCompIdx);
 
       // 2. Benchmark/Credentials Section Scroll Sync
       let closestBenchmarkIdx: number | null = null;
@@ -124,6 +125,9 @@ export default function App() {
       if (minBenchmarkDistance > window.innerHeight * 0.45) {
         closestBenchmarkIdx = null;
       }
+
+      // Write phase: apply both state updates after all reads are done.
+      setActiveCompetencyCard(closestCompIdx);
       setActiveBenchmarkCard(closestBenchmarkIdx);
     };
 
@@ -888,7 +892,7 @@ export default function App() {
               <div className="md:col-span-7">
                 <div className="p-6 sm:p-8 rounded border border-stone-200 bg-[#FAF9F6]">
                   <div className="flex items-center justify-center py-12">
-                    <span className="text-[10px] font-mono text-stone-400">Loading inquiry form...</span>
+                    <span className="text-[10px] font-mono text-stone-600">Loading inquiry form...</span>
                   </div>
                 </div>
               </div>
