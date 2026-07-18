@@ -1,0 +1,6 @@
+{
+  "name": "GLMU Consulting",
+  "description": "Professional cloud architecture, AI/ML engineering, and technical training solutions by GLMU Consulting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
