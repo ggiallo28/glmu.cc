@@ -138,4 +138,5 @@ GLMU Consulting  © 2026 glmu.cc  ·  Corporate Registries: EU
 ---
 
 > **Note:** This is a [Vite](https://vitejs.dev/) + [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) application.
-> Run locally: `npm install && npm run dev` — deploys to [glmu.cc](https://glmu.cc).
+> Run locally: `npm install && npm run dev`
+> Deploy: `npm run build` (outputs to `docs/`) — configure GitHub Pages to serve from `main` branch `/docs` folder.
