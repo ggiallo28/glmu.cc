@@ -135,11 +135,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Resources
   mcp.registerResource(
-    'page-html',
-    'Full page HTML content',
-    { uri: 'page://current', mimeType: 'text/html' },
+    'site-content',
+    'Full site content (llms.txt — LLM-optimized markdown)',
+    { uri: 'page://current', mimeType: 'text/markdown' },
     function(uri) {
-      return { contents: [{ uri: uri, mimeType: 'text/html', text: document.documentElement.outerHTML }] };
+      return fetch('/llms.txt')
+        .then(function(r) { if (!r.ok) throw new Error('Failed to fetch llms.txt'); return r.text(); })
+        .then(function(text) { return { contents: [{ uri: uri, mimeType: 'text/markdown', text: text }] }; })
+        .catch(function() {
+          return { contents: [{ uri: uri, mimeType: 'text/plain', text: '// llms.txt not available' }] };
+        });
     }
   );
 
@@ -212,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, register it as an MCP server for my client (check --help to see how). Then generate a connection token by running npx @jason.today/webmcp --new in the terminal (since the generate-token MCP tool won\'t be available until the server is registered and the session is restarted). Give me the raw token to paste into the widget. After I paste it, tell me to restart my MCP client so the site\'s tools appear. Once connected, these tools become available: get_scope_details (infrastructure, ai, training), get_credentials (certifications), get_contact (email/social), get_competencies (tech stack), send_corporate_inquiry (submit name/company/email/area/message). Also readable: page://current and section://{elementId}.';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, register it as an MCP server for my client (check --help to see how). Then generate a connection token by running npx @jason.today/webmcp --new in the terminal (since the generate-token MCP tool won\'t be available until the server is registered and the session is restarted). Give me the raw token to paste into the widget. After I paste it, tell me to restart my MCP client so the site\'s tools appear. Once connected, these tools become available: get_scope_details (infrastructure, ai, training), get_credentials (certifications), get_contact (email/social), get_competencies (tech stack), send_corporate_inquiry (submit name/company/email/area/message). Also readable: page://current (llms.txt content) and section://{elementId}.';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +
