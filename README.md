@@ -123,7 +123,7 @@ Deliverables:
 Initiate a case review regarding compliance boundaries or technical training requirements. Responses are provided to verified corporate emails within 24 business hours.
 
 ```
-✉  gianlu@glmu.cc
+📬  gianlu@glmu.cc
 🌍  Based in Italy, serving EU networks
 ```
 
