@@ -22,7 +22,7 @@ export default function ContactForm() {
     e.preventDefault();
     setFormError(null);
 
-    const { name, company, email, message } = formState;
+    const { name, company, email, area, message } = formState;
 
     if (!name.trim() || !company.trim() || !email.trim() || !message.trim()) {
       setFormError('Please complete all required fields.');
@@ -37,17 +37,39 @@ export default function ContactForm() {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormSuccess(true);
-      setFormState({
-        name: '',
-        company: '',
-        email: '',
-        area: 'Cloud Infrastructure',
-        message: ''
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: 'fb54103d-ecd4-4450-ad37-917b5f07c558',
+        subject: 'New Corporate Inquiry — GLMU Consulting',
+        name,
+        company,
+        email,
+        area,
+        message
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        setIsSubmitting(false);
+        if (data.success) {
+          setFormSuccess(true);
+          setFormState({
+            name: '',
+            company: '',
+            email: '',
+            area: 'Cloud Infrastructure',
+            message: ''
+          });
+        } else {
+          setFormError(data.message || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+        setFormError('Network error. Please try again or email us directly.');
       });
-    }, 1000);
   };
 
   return (

@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var company = (args.company || '').trim();
         var email = (args.email || '').trim();
         var message = (args.message || '').trim();
+        var area = args.area || '';
 
         if (!name || !company || !email || !message) {
           return { content: [{ type: 'text', text: 'Error: name, company, email, and message are all required.' }] };
@@ -99,7 +100,30 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!emailRegex.test(email)) {
           return { content: [{ type: 'text', text: 'Error: please provide a valid business email address.' }] };
         }
-        return { content: [{ type: 'text', text: 'Inquiry registered. Technical specification sheet has been filed. An architect will connect shortly.' }] };
+
+        return fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: 'fb54103d-ecd4-4450-ad37-917b5f07c558',
+            subject: 'New Corporate Inquiry — GLMU Consulting (via AI agent)',
+            name: name,
+            company: company,
+            email: email,
+            area: area,
+            message: message
+          })
+        })
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (data.success) {
+              return { content: [{ type: 'text', text: 'Inquiry submitted successfully. An architect will connect shortly.' }] };
+            }
+            return { content: [{ type: 'text', text: 'Error: ' + (data.message || 'submission failed.') }] };
+          })
+          .catch(function() {
+            return { content: [{ type: 'text', text: 'Error: network failure while submitting inquiry.' }] };
+          });
       }
     }
   ];
