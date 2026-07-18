@@ -422,7 +422,7 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 0) ? 'text-sky-500' : 'text-stone-400 group-hover:text-sky-500'
+                (isMobile && activeCompetencyCard === 0) ? 'text-sky-500' : 'text-stone-500 group-hover:text-sky-500'
               }`}>Domain 01</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 0) ? 'text-sky-950' : 'text-stone-950 group-hover:text-sky-950'
@@ -459,7 +459,7 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 1) ? 'text-amber-500' : 'text-stone-400 group-hover:text-amber-500'
+                (isMobile && activeCompetencyCard === 1) ? 'text-amber-500' : 'text-stone-500 group-hover:text-amber-500'
               }`}>Domain 02</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 1) ? 'text-amber-950' : 'text-stone-950 group-hover:text-amber-950'
@@ -496,7 +496,7 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 2) ? 'text-orange-500' : 'text-stone-400 group-hover:text-orange-500'
+                (isMobile && activeCompetencyCard === 2) ? 'text-orange-500' : 'text-stone-500 group-hover:text-orange-500'
               }`}>Domain 03</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 2) ? 'text-orange-950' : 'text-stone-950 group-hover:text-orange-950'
@@ -533,7 +533,7 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 3) ? 'text-purple-500' : 'text-stone-400 group-hover:text-purple-500'
+                (isMobile && activeCompetencyCard === 3) ? 'text-purple-500' : 'text-stone-500 group-hover:text-purple-500'
               }`}>Domain 04</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 3) ? 'text-purple-950' : 'text-stone-950 group-hover:text-purple-950'
@@ -570,7 +570,7 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 4) ? 'text-rose-500' : 'text-stone-400 group-hover:text-rose-500'
+                (isMobile && activeCompetencyCard === 4) ? 'text-rose-500' : 'text-stone-500 group-hover:text-rose-500'
               }`}>Domain 05</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 4) ? 'text-rose-950' : 'text-stone-950 group-hover:text-rose-950'
@@ -1059,7 +1059,7 @@ export default function App() {
               </div>
               <button 
                 onClick={() => setVatModalOpen(false)}
-                className="text-stone-400 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-100 cursor-pointer"
+                className="text-stone-500 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-100 cursor-pointer"
                 aria-label="Close modal"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -1072,11 +1072,11 @@ export default function App() {
                 <>
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">VAT Number</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">VAT Number</span>
                       <span className="text-sm font-mono font-semibold text-stone-900">{vatData.msCode}{vatData.vatNumber}</span>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Status</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Status</span>
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200/50">
                         {vatData.isValid ? 'Valid' : 'Invalid'}
                       </span>
@@ -1085,12 +1085,12 @@ export default function App() {
 
                   <div className="space-y-4">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block mb-0.5">Company / Entity</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block mb-0.5">Company / Entity</span>
                       <p className="text-xs font-semibold text-stone-900">{vatData.name || 'MUCCIOLO GIANLUIGI'}</p>
                     </div>
 
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block mb-0.5">Registered Address</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block mb-0.5">Registered Address</span>
                       <p className="text-xs text-stone-600 whitespace-pre-line leading-relaxed font-light">
                         {vatData.address || 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'}
                       </p>
@@ -1098,11 +1098,11 @@ export default function App() {
 
                     <div className="grid grid-cols-2 gap-4 pt-2">
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Country</span>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Country</span>
                         <p className="text-xs font-light text-stone-800">Italy (IT)</p>
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Query Date</span>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Query Date</span>
                         <p className="text-[10px] font-mono text-stone-500">
                           {vatData.requestDate ? new Date(vatData.requestDate).toLocaleString() : new Date().toLocaleString()}
                         </p>
