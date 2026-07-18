@@ -2,108 +2,136 @@
 document.addEventListener('DOMContentLoaded', function() {
   var mcp = new WebMCP({ color: '#292524', size: '24px', padding: '0' });
 
-  // Tools
-  mcp.registerTool(
-    'get_scope_details',
-    'Get details about a specific engagement scope: infrastructure, ai, or training',
-    { type: 'object', properties: { key: { type: 'string', description: 'Scope key: infrastructure, ai, or training', enum: ['infrastructure', 'ai', 'training'] } }, required: ['key'] },
-    function(args) {
-      var details = {
-        infrastructure: {
-          title: 'Multi-Tenant Platform Foundations',
-          timeline: '3-6 Weeks',
-          focus: 'Deploying secure multi-tenant isolation boundaries, establishing granular KMS custody encryption keys, and engineering reusable infrastructure templates via Terraform.',
-          deliverables: ['Private VPC subnet networks, security groups, and IAM roles', 'Modular Terraform templates for separate staging environments', 'Automated infrastructure drift checks and policy verification rules']
-        },
-        ai: {
-          title: 'Sovereign AI & Agent Platform Design',
-          timeline: '3-6 Weeks',
-          focus: 'Building robust multi-context semantic memory databases, implementing rigid model safety execution filters, and designing custom agent budget limit circuit-breakers.',
-          deliverables: ['Dedicated context database clusters and secure API proxy gateways', 'State-machine flow orchestrators preventing infinite execution loops', 'Custom cost-containment dashboards with automatic budget threshold limits']
-        },
-        training: {
-          title: 'Enterprise Engineering Enablement',
-          timeline: '3-6 Weeks',
-          focus: 'Providing authorized hyper-scaler training tracks, delivering targeted platform architecture reviews, and coaching engineering teams to achieve deep deployment autonomy.',
-          deliverables: ['Official certification exam study resources and practice tracks', 'Practical sandbox incident response blueprints and live scenario guides', 'Comprehensive platform reviews and custom architecture reference guidebooks']
-        }
-      };
-      var detail = details[args.key];
-      if (!detail) return { content: [{ type: 'text', text: 'Scope not found. Available: infrastructure, ai, training' }] };
-      return { content: [{ type: 'text', text: JSON.stringify(detail, null, 2) }] };
-    }
-  );
-
-  mcp.registerTool(
-    'get_credentials',
-    'Get certified professional credentials and benchmarks',
-    { type: 'object', properties: {} },
-    function() {
-      var credentials = [
-        { provider: 'Google Cloud', certs: ['Professional Cloud Architect (PCA-9831)', 'Generative AI Leader (GAIL-2301)'] },
-        { provider: 'Amazon Web Services', certs: ['Authorized Instructor (AAI-CHAMP-8822)', 'Professional Solutions Architect (SAP-C02)'] },
-        { provider: 'CNCF', certs: ['Certified Kubernetes Administrator (CKA)', 'Certified Kubernetes App Developer (CKAD)'] }
-      ];
-      return { content: [{ type: 'text', text: JSON.stringify(credentials, null, 2) }] };
-    }
-  );
-
-  mcp.registerTool(
-    'get_contact',
-    'Get contact information and social links for GLMU Consulting',
-    { type: 'object', properties: {} },
-    function() {
-      var contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
-      return { content: [{ type: 'text', text: JSON.stringify(contact, null, 2) }] };
-    }
-  );
-
-  mcp.registerTool(
-    'get_competencies',
-    'Get core technical competencies offered by GLMU Consulting',
-    { type: 'object', properties: {} },
-    function() {
-      var competencies = [
-        { domain: 'Cloud & Container Platforms', technologies: ['Multi-Cloud', 'Kubernetes', 'Helm', 'Terraform', 'VPC Isolation'] },
-        { domain: 'DevOps & Cost Architecture', technologies: ['CI/CD Pipelines', 'Ansible', 'FinOps', 'Resource Optimization'] },
-        { domain: 'Data & Real-time Analytics', technologies: ['Apache Spark', 'Apache Kafka', 'Apache Flink', 'Data Lakes', 'DWH'] },
-        { domain: 'AI/ML Systems Engineering', technologies: ['Python', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'] },
-        { domain: 'Security & Observability', technologies: ['IAM / KMS', 'OpenTelemetry', 'Serverless', 'Event-Driven', 'Pub/Sub'] }
-      ];
-      return { content: [{ type: 'text', text: JSON.stringify(competencies, null, 2) }] };
-    }
-  );
-
-  mcp.registerTool(
-    'send_corporate_inquiry',
-    'Submit a corporate inquiry to GLMU Consulting (contact name, organization, business email, practice area, and requirements)',
+  // Tool definitions, shared between the @jason.today/webmcp widget (works in
+  // any browser) and the native document.modelContext API (Chrome WebMCP origin trial).
+  var toolDefs = [
     {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: 'Contact name' },
-        company: { type: 'string', description: 'Organization name' },
-        email: { type: 'string', description: 'Business email address' },
-        area: { type: 'string', description: 'Practice area', enum: ['Cloud Infrastructure', 'AI & Machine Learning', 'Enablement / Workshops'] },
-        message: { type: 'string', description: 'Engagement requirements / inquiry details' }
-      },
-      required: ['name', 'company', 'email', 'message']
+      name: 'get_scope_details',
+      description: 'Get details about a specific engagement scope: infrastructure, ai, or training',
+      inputSchema: { type: 'object', properties: { key: { type: 'string', description: 'Scope key: infrastructure, ai, or training', enum: ['infrastructure', 'ai', 'training'] } }, required: ['key'] },
+      execute: function(args) {
+        var details = {
+          infrastructure: {
+            title: 'Multi-Tenant Platform Foundations',
+            timeline: '3-6 Weeks',
+            focus: 'Deploying secure multi-tenant isolation boundaries, establishing granular KMS custody encryption keys, and engineering reusable infrastructure templates via Terraform.',
+            deliverables: ['Private VPC subnet networks, security groups, and IAM roles', 'Modular Terraform templates for separate staging environments', 'Automated infrastructure drift checks and policy verification rules']
+          },
+          ai: {
+            title: 'Sovereign AI & Agent Platform Design',
+            timeline: '3-6 Weeks',
+            focus: 'Building robust multi-context semantic memory databases, implementing rigid model safety execution filters, and designing custom agent budget limit circuit-breakers.',
+            deliverables: ['Dedicated context database clusters and secure API proxy gateways', 'State-machine flow orchestrators preventing infinite execution loops', 'Custom cost-containment dashboards with automatic budget threshold limits']
+          },
+          training: {
+            title: 'Enterprise Engineering Enablement',
+            timeline: '3-6 Weeks',
+            focus: 'Providing authorized hyper-scaler training tracks, delivering targeted platform architecture reviews, and coaching engineering teams to achieve deep deployment autonomy.',
+            deliverables: ['Official certification exam study resources and practice tracks', 'Practical sandbox incident response blueprints and live scenario guides', 'Comprehensive platform reviews and custom architecture reference guidebooks']
+          }
+        };
+        var detail = details[args.key];
+        if (!detail) return { content: [{ type: 'text', text: 'Scope not found. Available: infrastructure, ai, training' }] };
+        return { content: [{ type: 'text', text: JSON.stringify(detail, null, 2) }] };
+      }
     },
-    function(args) {
-      var name = (args.name || '').trim();
-      var company = (args.company || '').trim();
-      var email = (args.email || '').trim();
-      var message = (args.message || '').trim();
+    {
+      name: 'get_credentials',
+      description: 'Get certified professional credentials and benchmarks',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var credentials = [
+          { provider: 'Google Cloud', certs: ['Professional Cloud Architect (PCA-9831)', 'Generative AI Leader (GAIL-2301)'] },
+          { provider: 'Amazon Web Services', certs: ['Authorized Instructor (AAI-CHAMP-8822)', 'Professional Solutions Architect (SAP-C02)'] },
+          { provider: 'CNCF', certs: ['Certified Kubernetes Administrator (CKA)', 'Certified Kubernetes App Developer (CKAD)'] }
+        ];
+        return { content: [{ type: 'text', text: JSON.stringify(credentials, null, 2) }] };
+      }
+    },
+    {
+      name: 'get_contact',
+      description: 'Get contact information and social links for GLMU Consulting',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
+        return { content: [{ type: 'text', text: JSON.stringify(contact, null, 2) }] };
+      }
+    },
+    {
+      name: 'get_competencies',
+      description: 'Get core technical competencies offered by GLMU Consulting',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var competencies = [
+          { domain: 'Cloud & Container Platforms', technologies: ['Multi-Cloud', 'Kubernetes', 'Helm', 'Terraform', 'VPC Isolation'] },
+          { domain: 'DevOps & Cost Architecture', technologies: ['CI/CD Pipelines', 'Ansible', 'FinOps', 'Resource Optimization'] },
+          { domain: 'Data & Real-time Analytics', technologies: ['Apache Spark', 'Apache Kafka', 'Apache Flink', 'Data Lakes', 'DWH'] },
+          { domain: 'AI/ML Systems Engineering', technologies: ['Python', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'] },
+          { domain: 'Security & Observability', technologies: ['IAM / KMS', 'OpenTelemetry', 'Serverless', 'Event-Driven', 'Pub/Sub'] }
+        ];
+        return { content: [{ type: 'text', text: JSON.stringify(competencies, null, 2) }] };
+      }
+    },
+    {
+      name: 'send_corporate_inquiry',
+      description: 'Submit a corporate inquiry to GLMU Consulting (contact name, organization, business email, practice area, and requirements)',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: 'Contact name' },
+          company: { type: 'string', description: 'Organization name' },
+          email: { type: 'string', description: 'Business email address' },
+          area: { type: 'string', description: 'Practice area', enum: ['Cloud Infrastructure', 'AI & Machine Learning', 'Enablement / Workshops'] },
+          message: { type: 'string', description: 'Engagement requirements / inquiry details' }
+        },
+        required: ['name', 'company', 'email', 'message']
+      },
+      execute: function(args) {
+        var name = (args.name || '').trim();
+        var company = (args.company || '').trim();
+        var email = (args.email || '').trim();
+        var message = (args.message || '').trim();
 
-      if (!name || !company || !email || !message) {
-        return { content: [{ type: 'text', text: 'Error: name, company, email, and message are all required.' }] };
+        if (!name || !company || !email || !message) {
+          return { content: [{ type: 'text', text: 'Error: name, company, email, and message are all required.' }] };
+        }
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          return { content: [{ type: 'text', text: 'Error: please provide a valid business email address.' }] };
+        }
+        return { content: [{ type: 'text', text: 'Inquiry registered. Technical specification sheet has been filed. An architect will connect shortly.' }] };
       }
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return { content: [{ type: 'text', text: 'Error: please provide a valid business email address.' }] };
-      }
-      return { content: [{ type: 'text', text: 'Inquiry registered. Technical specification sheet has been filed. An architect will connect shortly.' }] };
     }
-  );
+  ];
+
+  // Always register with the @jason.today/webmcp widget (works in any browser).
+  toolDefs.forEach(function(tool) {
+    mcp.registerTool(tool.name, tool.description, tool.inputSchema, tool.execute);
+  });
+
+  // Progressive enhancement: also register with Chrome's native WebMCP API
+  // (document.modelContext), when present, so Lighthouse's agentic-browsing
+  // audits (webmcp-registered-tools / webmcp-schema-validity) detect real tools
+  // instead of marking them Not Applicable.
+  if (typeof document.modelContext !== 'undefined' && typeof document.modelContext.registerTool === 'function') {
+    toolDefs.forEach(function(tool) {
+      try {
+        var result = document.modelContext.registerTool({
+          name: tool.name,
+          description: tool.description,
+          inputSchema: tool.inputSchema,
+          execute: function(args) { return tool.execute(args); }
+        });
+        if (result && typeof result.catch === 'function') {
+          result.catch(function(e) {
+            console.warn('Native WebMCP registration failed for ' + tool.name + ':', e);
+          });
+        }
+      } catch (e) {
+        console.warn('Native WebMCP registration failed for ' + tool.name + ':', e);
+      }
+    });
+  }
 
   // Resources
   mcp.registerResource(
