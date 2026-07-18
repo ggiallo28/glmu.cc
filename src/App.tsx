@@ -22,7 +22,7 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
       "Modular Terraform templates structured for separate staging environments.",
       "Automated infrastructure drift checks and policy verification rules."
     ],
-    verification: "Validated in production: Over twenty enterprise cloud platforms successfully migrated to secure three-tier subnetworks with zero security isolation boundaries breached across European financial operations."
+    verification: "Verified pattern across engagements: migrations are designed with dual-write testing and rapid rollback capability from day one. Monitoring runs at four layers (component, pipeline, system, business) with cost-threshold alerts built in from the start."
   },
   ai: {
     title: "Sovereign AI & Agent Platform Design",
@@ -34,7 +34,7 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
       "State-machine flow orchestrators preventing infinite execution run loops.",
       "Custom cost-containment dashboards with automatic budget threshold limits."
     ],
-    verification: "Validated in production: Engineered robust budget protection layers and custom prompt filtering blocks for high-volume linguistic engines, completely preventing cost loops in active systems."
+    verification: "Verified pattern: cost visibility is a discipline, not a slogan — every engagement runs on transparent, hourly-tracked billing agreed before work starts. The same discipline gets designed into agent platforms: budget thresholds and circuit-breakers specified upfront, before the first token is spent, not added after a runaway bill."
   },
   training: {
     title: "Enterprise Engineering Enablement",
