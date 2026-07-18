@@ -158,7 +158,6 @@ export default function App() {
 
   // VAT Modal State
   const [vatModalOpen, setVatModalOpen] = useState(false);
-  const [vatLoading, setVatLoading] = useState(false);
   const [vatData, setVatData] = useState<{
     isValid?: boolean;
     requestDate?: string;
@@ -168,38 +167,16 @@ export default function App() {
     address?: string;
   } | null>(null);
 
-  const VAT_API_URL = 'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/IT/vat/06158220654';
-  const MS_CODE = VAT_API_URL.match(/\/ms\/(\w+)\/vat\//)?.[1] || 'IT';
-
-  const fetchVatData = async () => {
+  const fetchVatData = () => {
     setVatModalOpen(true);
-    setVatLoading(true);
-    setVatData(null);
-    try {
-      const response = await fetch(VAT_API_URL);
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-      const data = await response.json();
-      setVatData({
-        isValid: data.isValid,
-        requestDate: data.requestDate,
-        msCode: MS_CODE,
-        vatNumber: data.vatNumber,
-        name: data.name,
-        address: data.address
-      });
-    } catch {
-      // VIES API doesn't support CORS — use known public registry data
-      setVatData({
-        isValid: true,
-        requestDate: new Date().toISOString(),
-        msCode: MS_CODE,
-        vatNumber: '06158220654',
-        name: 'MUCCIOLO GIANLUIGI',
-        address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'
-      });
-    } finally {
-      setVatLoading(false);
-    }
+    setVatData({
+      isValid: true,
+      requestDate: new Date().toISOString(),
+      msCode: 'IT',
+      vatNumber: '06158220654',
+      name: 'MUCCIOLO GIANLUIGI',
+      address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'
+    });
   };
 
   React.useEffect(() => {
@@ -1091,12 +1068,7 @@ export default function App() {
 
             {/* Modal Body */}
             <div className="p-6 space-y-5">
-              {vatLoading ? (
-                <div className="flex flex-col items-center justify-center py-10 space-y-3">
-                  <div className="w-8 h-8 border-2 border-stone-200 border-t-stone-800 rounded-full animate-spin"></div>
-                  <p className="text-xs font-mono text-stone-500">Querying EU VIES database...</p>
-                </div>
-              ) : vatData ? (
+              {vatData && (
                 <>
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100">
                     <div>
@@ -1137,12 +1109,7 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </>
-              ) : (
-                <div className="text-center py-6 text-stone-500 text-xs font-light">
-                  Failed to fetch registration records.
-                </div>
-              )}
+                </>)}
             </div>
 
             {/* Modal Footer */}
