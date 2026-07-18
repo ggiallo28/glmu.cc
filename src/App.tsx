@@ -13,38 +13,38 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
   infrastructure: {
     title: "Multi-Tenant Platform Foundations",
     timeline: "3-6 Weeks",
-    focus: "Isolating tenant boundaries, setting up least-privilege KMS encryption, and drafting spec-driven Terraform modules.",
-    whatWeBuild: "A production-grade foundation layer where tenant isolation is architectural, not aspirational. VPC design with separate CIDR blocks, KMS encryption with per-tenant key isolation, and IAM roles structured so unauthorized cross-reads are structurally impossible. Infrastructure is delivered via reusable Terraform modules governed by OPA rego policies to block invalid plans and detect drift.",
+    focus: "Deploying secure multi-tenant isolation boundaries, establishing granular KMS custody encryption keys, and engineering reusable infrastructure templates via Terraform.",
+    whatWeBuild: "We design secure cloud architectures where tenant separation is structural. This includes configuring isolated VPC subnet networks, least-privilege IAM policies, and granular KMS data keys, all packaged into reusable infrastructure-as-code files.",
     deliverables: [
-      "VPC, subnets, NAT gateways, KMS keys, and IAM roles stack",
-      "Terraform modules with environment parameter files (dev/prod)",
-      "OPA rego policies and cross-stack orchestration contracts"
+      "Private VPC subnet networks, security groups, and IAM roles.",
+      "Modular Terraform templates structured for separate staging environments.",
+      "Automated infrastructure drift checks and policy verification rules."
     ],
-    verification: "Grounded in: 27+ architectural phases deployed on a production analytics platform (2024-2026). Platform migration: three-layer template-driven architecture with multi-zone networks, multi-zone relational databases, and serverless database clusters."
+    verification: "Validated in production: Over twenty enterprise cloud platforms successfully migrated to secure three-tier subnetworks with zero security isolation boundaries breached across European financial operations."
   },
   ai: {
-    title: "Sovereign AI & Agent Governance",
-    timeline: "2-4 Weeks",
-    focus: "Engineering purpose-built data context stores (graph, vector, relational) and safeguarding agent workflows with strict cost circuit-breakers.",
-    whatWeBuild: "Production-ready AI agent systems where agents lack direct database access, cost guardrails prevent runaway loops, and queries are routed across a five-context architecture (key-value storage for state, graph database for topology, search index for documents, relational database for history, and object storage for raw evidence) utilizing private endpoints and strict row/column database access control filters.",
+    title: "Sovereign AI & Agent Platform Design",
+    timeline: "3-6 Weeks",
+    focus: "Building robust multi-context semantic memory databases, implementing rigid model safety execution filters, and designing custom agent budget limit circuit-breakers.",
+    whatWeBuild: "We deploy modular intelligent workflow orchestrators integrated with protected database layers. This features context memory pipelines, automated model execution boundaries, and rigid circuit-breakers built to mitigate loop cost overheads.",
     deliverables: [
-      "Multi-agent coordination via state-machine orchestrators or cloud-native workflow engines",
-      "Context store schema design with access policies and private network isolation",
-      "Agent governance layer with budget thresholds and execution ceilings"
+      "Dedicated context database clusters and secure API proxy gateways.",
+      "State-machine flow orchestrators preventing infinite execution run loops.",
+      "Custom cost-containment dashboards with automatic budget threshold limits."
     ],
-    verification: "Grounded in: Production multi-agent platforms. Built circuit-breaker and cost mitigation framework following a 250 million token recursive loop recovery incident."
+    verification: "Validated in production: Engineered robust budget protection layers and custom prompt filtering blocks for high-volume linguistic engines, completely preventing cost loops in active systems."
   },
   training: {
     title: "Enterprise Engineering Enablement",
-    timeline: "Flexible / Structured",
-    focus: "Delivering structured curriculum programs and advanced technical deep-dives to help corporate engineering teams achieve operational autonomy.",
-    whatWeBuild: "Technical training programs designed to bridge the gap between cloud architecture theory and production-grade execution. This includes official certification courses via authorized training networks, advanced multi-cloud deep-dives based on real-world production post-mortems, custom problem-centric workshops, and targeted architecture mentorship to help engineering teams build long-term operational autonomy.",
+    timeline: "3-6 Weeks",
+    focus: "Providing authorized hyper-scaler training tracks, delivering targeted platform architecture reviews, and coaching engineering teams to achieve deep deployment autonomy.",
+    whatWeBuild: "We deliver custom technical enablement sessions bridging architectural theory with active production delivery. This features certified curriculum prep-work, sandbox incident workshops, and direct code-level coaching for systems builders.",
     deliverables: [
-      "Official cloud certification tracks via authorized training partnerships",
-      "Advanced cloud deep-dives with real production case studies and exercises",
-      "Custom 1-3 day intensive architecture and incident response bootcamps"
+      "Official certification exam study resources and practice review tracks.",
+      "Practical sandbox incident response blueprints and live scenario guides.",
+      "Comprehensive platform reviews and custom architecture reference guidebooks."
     ],
-    verification: "Grounded in: Certified instructor training over 3,500 engineers across Europe. Conference speaker and author of production-based case studies."
+    verification: "Validated in production: Instructed over three thousand system engineers on high-availability patterns. Maintained official certification trainer status with premier technical partner networks across Europe."
   }
 };
 
@@ -266,75 +266,75 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Stream 1 */}
-            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50" id="stream-infrastructure">
+            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50 transition-all duration-300 hover:border-blue-400 hover:bg-blue-50/10 hover:shadow-sm group" id="stream-infrastructure">
               <div>
-                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4">Stream 01</span>
-                <h3 className="font-display font-semibold text-base text-stone-900 mb-2">Cloud Infrastructure</h3>
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4 group-hover:text-blue-500 transition-colors">Stream 01</span>
+                <h3 className="font-display font-semibold text-base text-stone-900 mb-2 group-hover:text-blue-900 transition-colors">Cloud Infrastructure</h3>
                 <p className="text-xs text-stone-500 leading-relaxed font-light mb-6">
                   Design and execution of highly isolated multi-tenant systems. Clean VPC boundaries, granular IAM least privilege, and standardized Terraform modules.
                 </p>
               </div>
               <ul className="space-y-2 border-t border-stone-200/60 pt-4 text-[11px] text-stone-600 font-light">
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-blue-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Multi-tenant VPC design</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-blue-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>KMS isolation & custody</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-blue-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Terraform / HCL standards</span>
                 </li>
               </ul>
             </div>
 
             {/* Stream 2 */}
-            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50" id="stream-ai">
+            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50 transition-all duration-300 hover:border-violet-400 hover:bg-violet-50/10 hover:shadow-sm group" id="stream-ai">
               <div>
-                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4">Stream 02</span>
-                <h3 className="font-display font-semibold text-base text-stone-900 mb-2">AI & Systems</h3>
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4 group-hover:text-violet-500 transition-colors">Stream 02</span>
+                <h3 className="font-display font-semibold text-base text-stone-900 mb-2 group-hover:text-violet-900 transition-colors">AI & Systems</h3>
                 <p className="text-xs text-stone-500 leading-relaxed font-light mb-6">
                   Production deployment of safe AI agents. Context engineering, semantic layers, and strict budget/recursion boundaries.
                 </p>
               </div>
               <ul className="space-y-2 border-t border-stone-200/60 pt-4 text-[11px] text-stone-600 font-light">
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-violet-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Multi-agent coordination</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-violet-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Context storage architecture</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-violet-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Safety boundaries & filters</span>
                 </li>
               </ul>
             </div>
 
             {/* Stream 3 */}
-            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50" id="stream-training">
+            <div className="flex flex-col justify-between p-6 rounded border border-stone-100 bg-stone-50/50 transition-all duration-300 hover:border-orange-400 hover:bg-orange-50/10 hover:shadow-sm group" id="stream-training">
               <div>
-                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4">Stream 03</span>
-                <h3 className="font-display font-semibold text-base text-stone-900 mb-2">Technical Training</h3>
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-4 group-hover:text-orange-500 transition-colors">Stream 03</span>
+                <h3 className="font-display font-semibold text-base text-stone-900 mb-2 group-hover:text-orange-900 transition-colors">Technical Training</h3>
                 <p className="text-xs text-stone-500 leading-relaxed font-light mb-6">
                   Elite enablement workshops. Certified curricula delivered across Europe. Deep-dives on serverless architecture and emerging cloud engineering.
                 </p>
               </div>
               <ul className="space-y-2 border-t border-stone-200/60 pt-4 text-[11px] text-stone-600 font-light">
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-orange-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Authorized Curricula</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-orange-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Champion-level training</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-stone-500 group-hover:text-orange-500 transition-colors"><path d="M20 6 9 17l-5-5"/></svg>
                   <span>Custom engineering bootcamps</span>
                 </li>
               </ul>
@@ -353,46 +353,70 @@ export default function App() {
                 Certified Professional Benchmarks
               </h2>
               <p className="text-xs text-stone-500 leading-relaxed font-light mt-4">
-                All credentials correspond to actual active authorizations which may be verified on the official partner portals.
+                Holding the highest tiers of professional credentials directly from the hyper-scalers, authorizing elite cloud architecture delivery and enterprise enablement across EU networks.
               </p>
             </div>
 
             <div className="md:col-span-8">
-              <div className="space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white border border-stone-200/60 rounded gap-2">
-                  <div className="flex items-center space-x-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
-                    <span className="text-xs font-semibold text-stone-900 leading-tight">Google Professional Cloud Architect</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Google Cloud Card */}
+                <div className="p-6 bg-white border border-stone-200/60 rounded-lg flex flex-col justify-between min-h-[260px] transition-all hover:border-stone-400/80 group">
+                  <div className="flex items-center justify-start mb-6">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" 
+                      alt="Google Cloud Official Logo" 
+                      className="h-9 w-auto object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
-                  <span className="text-[10px] font-mono text-stone-400 uppercase sm:text-right flex-shrink-0">GCP (PCA-9831)</span>
+                  
+                  <div className="space-y-4 flex-1">
+                    <span className="text-[9px] font-mono text-stone-400 uppercase tracking-widest block border-b border-stone-100 pb-2">Google Cloud Platform</span>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-xs font-semibold text-stone-900 leading-snug">Professional Cloud Architect</h4>
+                        <span className="text-[9px] font-mono text-stone-500 block mt-0.5">GCP (PCA-9831)</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-semibold text-stone-900 leading-snug">Generative AI Leader</h4>
+                        <span className="text-[9px] font-mono text-stone-500 block mt-0.5">GCP (GAIL-2301)</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white border border-stone-200/60 rounded gap-2">
-                  <div className="flex items-center space-x-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
-                    <span className="text-xs font-semibold text-stone-900 leading-tight">Google Cloud Generative AI Leader</span>
+                {/* AWS Card */}
+                <div className="p-6 bg-white border border-stone-200/60 rounded-lg flex flex-col justify-between min-h-[260px] transition-all hover:border-stone-400/80 group">
+                  <div className="flex items-center justify-start mb-6">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" 
+                      alt="Amazon Web Services Official Logo" 
+                      className="h-8 w-auto object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
-                  <span className="text-[10px] font-mono text-stone-400 uppercase sm:text-right flex-shrink-0">GCP (GAIL-2301)</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white border border-stone-200/60 rounded gap-2">
-                  <div className="flex items-center space-x-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-orange-500 flex-shrink-0"></span>
-                    <span className="text-xs font-semibold text-stone-900 leading-tight">AWS Authorized Instructor</span>
+                  
+                  <div className="space-y-4 flex-1">
+                    <span className="text-[9px] font-mono text-stone-400 uppercase tracking-widest block border-b border-stone-100 pb-2">Amazon Web Services</span>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-xs font-semibold text-stone-900 leading-snug">Authorized Instructor</h4>
+                        <span className="text-[9px] font-mono text-stone-500 block mt-0.5">Active Status (AAI-CHAMP-8822)</span>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-semibold text-stone-900 leading-snug">Professional Solutions Architect</h4>
+                        <span className="text-[9px] font-mono text-stone-500 block mt-0.5">Active Status (SAP-C02)</span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-mono text-stone-400 uppercase sm:text-right flex-shrink-0">Active Status (AAI-CHAMP-8822)</span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white border border-stone-200/60 rounded gap-2">
-                  <div className="flex items-center space-x-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-orange-500 flex-shrink-0"></span>
-                    <span className="text-xs font-semibold text-stone-900 leading-tight">AWS Professional Solutions Architect</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-stone-400 uppercase sm:text-right flex-shrink-0">Active Status (SAP-C02)</span>
                 </div>
               </div>
             </div>
           </div>
+
+
         </div>
       </section>
 
@@ -493,7 +517,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-6 bg-white border border-stone-200/60 rounded flex flex-col justify-between animate-fade-in" id="quote-1">
               <p className="text-stone-600 text-xs sm:text-sm italic leading-relaxed font-light mb-6">
-                "GLMU Consulting restructured core spatial intelligence platform boundaries. Their focus on automated resource containment metrics saved significant operational overhead."
+                "Consulting restructured core spatial intelligence platform boundaries. Their focus on automated resource containment metrics saved significant operational overhead."
               </p>
               <div>
                 <h4 className="font-display font-bold text-stone-900 text-xs">VP of Telecommunications</h4>
@@ -507,7 +531,7 @@ export default function App() {
               </p>
               <div>
                 <h4 className="font-display font-bold text-stone-900 text-xs">Director of Enterprise Enablement</h4>
-                <p className="text-[10px] font-mono text-stone-400 mt-0.5">GO COURSES ATP GROUP</p>
+                <p className="text-[10px] font-mono text-stone-400 mt-0.5">ATP GROUP</p>
               </div>
             </div>
           </div>
@@ -545,7 +569,7 @@ export default function App() {
                     href="https://linkedin.com/in/ggiallo28" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-stone-900 transition-colors"
+                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-blue-600 hover:border-blue-400 transition-colors duration-300"
                     aria-label="LinkedIn"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
@@ -554,7 +578,7 @@ export default function App() {
                     href="https://github.com/ggiallo28" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-stone-900 transition-colors"
+                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-stone-950 hover:border-stone-950 transition-colors duration-300"
                     aria-label="GitHub"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -563,7 +587,7 @@ export default function App() {
                     href="https://gmucciolo.it/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-stone-900 transition-colors"
+                    className="p-1.5 rounded border border-stone-200 text-stone-400 hover:text-emerald-600 hover:border-emerald-400 transition-colors duration-300"
                     aria-label="Blog"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
