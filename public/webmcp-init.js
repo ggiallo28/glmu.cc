@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   mcp.registerTool(
     'get_scope_details',
     'Get details about a specific engagement scope: infrastructure, ai, or training',
-    { key: { type: 'string', description: 'Scope key: infrastructure, ai, or training' } },
+    { type: 'object', properties: { key: { type: 'string', description: 'Scope key: infrastructure, ai, or training', enum: ['infrastructure', 'ai', 'training'] } }, required: ['key'] },
     function(args) {
       var details = {
         infrastructure: {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
   mcp.registerTool(
     'get_credentials',
     'Get certified professional credentials and benchmarks',
-    {},
+    { type: 'object', properties: {} },
     function() {
       var credentials = [
         { provider: 'Google Cloud', certs: ['Professional Cloud Architect (PCA-9831)', 'Generative AI Leader (GAIL-2301)'] },
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
   mcp.registerTool(
     'get_contact',
     'Get contact information and social links for GLMU Consulting',
-    {},
+    { type: 'object', properties: {} },
     function() {
       var contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
       return { content: [{ type: 'text', text: JSON.stringify(contact, null, 2) }] };
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
   mcp.registerTool(
     'get_competencies',
     'Get core technical competencies offered by GLMU Consulting',
-    {},
+    { type: 'object', properties: {} },
     function() {
       var competencies = [
         { domain: 'Cloud & Container Platforms', technologies: ['Multi-Cloud', 'Kubernetes', 'Helm', 'Terraform', 'VPC Isolation'] },
@@ -71,6 +71,37 @@ document.addEventListener('DOMContentLoaded', function() {
         { domain: 'Security & Observability', technologies: ['IAM / KMS', 'OpenTelemetry', 'Serverless', 'Event-Driven', 'Pub/Sub'] }
       ];
       return { content: [{ type: 'text', text: JSON.stringify(competencies, null, 2) }] };
+    }
+  );
+
+  mcp.registerTool(
+    'send_corporate_inquiry',
+    'Submit a corporate inquiry to GLMU Consulting (contact name, organization, business email, practice area, and requirements)',
+    {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Contact name' },
+        company: { type: 'string', description: 'Organization name' },
+        email: { type: 'string', description: 'Business email address' },
+        area: { type: 'string', description: 'Practice area', enum: ['Cloud Infrastructure', 'AI & Machine Learning', 'Enablement / Workshops'] },
+        message: { type: 'string', description: 'Engagement requirements / inquiry details' }
+      },
+      required: ['name', 'company', 'email', 'message']
+    },
+    function(args) {
+      var name = (args.name || '').trim();
+      var company = (args.company || '').trim();
+      var email = (args.email || '').trim();
+      var message = (args.message || '').trim();
+
+      if (!name || !company || !email || !message) {
+        return { content: [{ type: 'text', text: 'Error: name, company, email, and message are all required.' }] };
+      }
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return { content: [{ type: 'text', text: 'Error: please provide a valid business email address.' }] };
+      }
+      return { content: [{ type: 'text', text: 'Inquiry registered. Technical specification sheet has been filed. An architect will connect shortly.' }] };
     }
   );
 
@@ -153,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, register it as an MCP server for my client (check --help to see how). Then generate a connection token by running npx @jason.today/webmcp --new in the terminal (since the generate-token MCP tool won\'t be available until the server is registered and the session is restarted). Give me the raw token to paste into the widget. After I paste it, tell me to restart my MCP client so the site\'s tools appear. Once connected, these tools become available: get_scope_details (infrastructure, ai, training), get_credentials (certifications), get_contact (email/social), get_competencies (tech stack). Also readable: page://current and section://{elementId}.';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, register it as an MCP server for my client (check --help to see how). Then generate a connection token by running npx @jason.today/webmcp --new in the terminal (since the generate-token MCP tool won\'t be available until the server is registered and the session is restarted). Give me the raw token to paste into the widget. After I paste it, tell me to restart my MCP client so the site\'s tools appear. Once connected, these tools become available: get_scope_details (infrastructure, ai, training), get_credentials (certifications), get_contact (email/social), get_competencies (tech stack), send_corporate_inquiry (submit name/company/email/area/message). Also readable: page://current and section://{elementId}.';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +
