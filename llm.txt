@@ -1,0 +1,55 @@
+# GLMU Consulting — glmu.cc
+
+Single-page consulting site for GLMU Consulting (sovereign cloud architectures, enterprise AI & enablement).
+
+## Stack
+
+- React 19 + TypeScript
+- Vite 6 (build tool)
+- Tailwind CSS v4 (styling, @theme directive)
+- Deployed via GitHub Actions → GitHub Pages (www.glmu.cc)
+
+## Key Files
+
+| File | Role |
+|---|---|
+| `src/App.tsx` | Single React component — entire site (header, hero, identity, competencies, credentials, scope accordion, contact form, footer, VAT modal) |
+| `src/index.css` | Tailwind v4 imports, @theme custom fonts, animations, scrollbar styling |
+| `src/main.tsx` | React entry point, mounts to #root |
+| `index.html` | Shell: CSP meta tag, Google Fonts preload+print-onload, favicon |
+| `public/favicon.svg` | Dark rounded square with white "G" |
+| `public/google-cloud-logo.svg` | Self-hosted vendor logo |
+| `public/aws-logo.svg` | Self-hosted vendor logo |
+| `public/cncf-logo.svg` | Self-hosted vendor logo |
+| `.github/workflows/gh-pages.yml` | Build + deploy to gh-pages branch |
+
+## Commands
+
+```bash
+npm install         # install deps
+npm run dev         # dev server → http://localhost:5173
+npm run build       # production build → dist/
+npm run preview     # serve dist/ locally
+```
+
+## Design Decisions
+
+- **No router** — single-page, anchor links (`#contact`, `#credentials`) for sections
+- **VAT modal** — hardcoded public registry data (VIES REST API lacks CORS headers for browser fetch)
+- **Vendor logos** — self-hosted in `public/` (not hotlinked from Wikimedia)
+- **Google Fonts** — loaded non-blocking via `preload` + `media="print" onload` trick
+- **Font stack** — Plus Jakarta Sans (body), Space Grotesk (headings), JetBrains Mono (code), with system fallbacks
+- **State** — all in a single `useState` per feature (no global state, no context, no router)
+- **Form** — client-side validation only, no backend (simulated submit with timeout)
+- **CSP** — meta tag with `default-src 'self'`, Google Fonts/APIs whitelisted
+
+## Accessibility
+
+- Contrast: `text-stone-600` minimum on off-white backgrounds (~6.5:1)
+- Skip link, aria landmarks on sections
+- ESC closes VAT modal
+- SVG logos have alt text + explicit width/height
+
+## Deployment
+
+Push to `main` → GitHub Actions builds and deploys to `gh-pages` branch → served at www.glmu.cc (CNAME configured).
