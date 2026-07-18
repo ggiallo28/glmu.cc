@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import TradeoffLedger from './components/TradeoffLedger';
-
 
 interface ScopeDetail {
   title: string;
@@ -51,9 +49,6 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
 };
 
 export default function App() {
-  // Main view switcher: 'profile' for the consulting landing page, 'ledger' for the interactive tracker tool
-  const [activeMainView, setActiveMainView] = useState<'profile' | 'ledger'>('profile');
-
   // Desktop Tab Selection
   const [selectedDomain, setSelectedDomain] = useState<'infrastructure' | 'ai' | 'training'>('infrastructure');
   
@@ -339,49 +334,22 @@ export default function App() {
       <header className="sticky top-0 z-50 bg-[#FAF9F6]/80 backdrop-blur-md border-b border-stone-200/60" id="glmu-header">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Elegant Logo & Switcher */}
+            {/* Logo */}
             <div className="flex items-center space-x-6">
-              <span 
-                onClick={() => setActiveMainView('profile')}
-                className="font-display font-bold text-lg tracking-wider text-stone-950 uppercase cursor-pointer"
-              >
+              <span className="font-display font-bold text-lg tracking-wider text-stone-950 uppercase">
                 GLMU
               </span>
-              <nav className="hidden sm:flex items-center space-x-4 text-[11px] font-mono">
-                <button 
-                  onClick={() => setActiveMainView('profile')}
-                  className={`uppercase tracking-wider transition-colors cursor-pointer ${
-                    activeMainView === 'profile' ? 'text-stone-950 font-bold border-b border-stone-950' : 'text-stone-400 hover:text-stone-600'
-                  }`}
-                >
-                  Firm Profile
-                </button>
-                <button 
-                  onClick={() => setActiveMainView('ledger')}
-                  className={`uppercase tracking-wider transition-colors cursor-pointer flex items-center space-x-1 ${
-                    activeMainView === 'ledger' ? 'text-stone-950 font-bold border-b border-stone-950' : 'text-stone-400 hover:text-stone-600'
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>Live Ledger</span>
-                </button>
-              </nav>
             </div>
 
             {/* Quick Action Link */}
             <div>
-              <button 
-                onClick={() => {
-                  setActiveMainView('profile');
-                  setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-                className="text-xs font-mono uppercase tracking-wider text-stone-950 border-b border-stone-950 hover:border-transparent pb-0.5 transition-all cursor-pointer"
+              <a 
+                href="#contact" 
+                className="text-xs font-mono uppercase tracking-wider text-stone-950 border-b border-stone-950 hover:border-transparent pb-0.5 transition-all"
                 id="inquire-nav-link"
               >
                 Inquire Portal
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -405,71 +373,18 @@ export default function App() {
             Reasoning through the complex architectural decisions that define the next two to three years. Delivering rigorous decision models with explicit tradeoffs so technology organizations can navigate their own unique context.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
-            <button 
-              onClick={() => {
-                setActiveMainView('profile');
-                setTimeout(() => {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className="w-full sm:w-auto px-8 py-3.5 text-xs font-mono uppercase tracking-wider bg-stone-950 text-white hover:bg-stone-800 transition-colors rounded text-center cursor-pointer"
+          <div className="flex justify-center">
+            <a 
+              href="#contact" 
+              className="px-8 py-3.5 text-xs font-mono uppercase tracking-wider bg-stone-950 text-white hover:bg-stone-800 transition-colors rounded text-center"
               id="hero-cta-btn"
             >
               Get in Touch
-            </button>
-            <button 
-              onClick={() => {
-                setActiveMainView('ledger');
-                setTimeout(() => {
-                  document.getElementById('main-nav-tabs')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className="w-full sm:w-auto px-8 py-3.5 text-xs font-mono uppercase tracking-wider bg-white border border-stone-200 hover:border-stone-400 text-stone-900 transition-colors rounded text-center cursor-pointer flex items-center justify-center space-x-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Launch Live Ledger</span>
-            </button>
+            </a>
           </div>
         </div>
       </section>
-
-      {/* VIEW TOGGLE TABS */}
-      <div className="border-y border-stone-200/60 bg-[#FAF9F6] sticky top-20 z-40" id="main-nav-tabs">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 flex justify-center space-x-8">
-          <button 
-            onClick={() => setActiveMainView('profile')}
-            className={`py-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
-              activeMainView === 'profile' 
-                ? 'border-stone-950 text-stone-950 font-bold' 
-                : 'border-transparent text-stone-400 hover:text-stone-600 font-medium'
-            }`}
-          >
-            Firm Profile & Services
-          </button>
-          <button 
-            onClick={() => setActiveMainView('ledger')}
-            className={`py-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer flex items-center space-x-1.5 ${
-              activeMainView === 'ledger' 
-                ? 'border-stone-950 text-stone-950 font-bold' 
-                : 'border-transparent text-stone-400 hover:text-stone-600 font-medium'
-            }`}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Interactive Tradeoff Ledger</span>
-          </button>
-        </div>
-      </div>
-
-      {activeMainView === 'ledger' ? (
-        <section className="py-12 bg-stone-50/20 animate-fade-in" id="interactive-ledger-workspace">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <TradeoffLedger />
-          </div>
-        </section>
-      ) : (
-        <>
-          {/* IDENTITY / FIRM PROFILE */}
+      {/* IDENTITY / FIRM PROFILE */}
           <section className="py-16 border-b border-stone-200/60 bg-[#FAF9F6]" id="glmu-identity">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
@@ -1130,8 +1045,6 @@ export default function App() {
           </div>
         </div>
       </section>
-      </>
-      )}
 
       </main>
 
