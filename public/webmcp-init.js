@@ -1,5 +1,5 @@
-// WebMCP initialization - runs after DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+// WebMCP initialization - IIFE (DOM is ready whether loaded eagerly or lazily)
+(function() {
   var mcp = new WebMCP({ color: '#292524', size: '24px', padding: '0' });
 
   // Scrolls a section into view, aligned to its top, so a human watching the
@@ -359,9 +359,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   );
 
+  // Pulse animation for the trigger icon while connected.
+  var pulseStyle = document.createElement('style');
+  pulseStyle.textContent = '@keyframes webmcp-pulse {' +
+    '0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45); }' +
+    '50% { box-shadow: 0 0 0 5px rgba(37, 99, 235, 0); }' +
+    '} .webmcp-pulse-active { animation: webmcp-pulse 2s ease-in-out infinite; }';
+  document.head.appendChild(pulseStyle);
+
   // Watch the connection-status element and rephrase auth/registration failures
   // into actionable messages (the minified webmcp.js only says "Authorization failed"
-  // or "Disconnected", which doesn't tell the user to generate a fresh token).
+  // or "Disconnected", which doesn't tell the user to generate a fresh token), and
+  // toggle the trigger's pulse animation to reflect connected state.
   function watchStatus() {
     var el = document.querySelector('#' + CSS.escape(mcp.elementId) + ' .webmcp-status');
     if (!el) { setTimeout(watchStatus, 500); return; }
@@ -372,6 +381,10 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (/disconnected/i.test(t) && t.length < 30) {
         // Rewrite bare "Disconnected" to include the refresh action
         el.innerHTML = '⏎ <strong>Disconnected</strong> - paste a new token to reconnect';
+      }
+      var trigger = document.querySelector('#' + CSS.escape(mcp.elementId) + ' .webmcp-trigger');
+      if (trigger) {
+        trigger.classList.toggle('webmcp-pulse-active', /^connected to /i.test(t));
       }
     });
     obs.observe(el, { childList: true, subtree: true, characterData: true });
@@ -460,4 +473,4 @@ document.addEventListener('DOMContentLoaded', function() {
       content.insertBefore(instructionsBox, content.querySelector('.webmcp-status') || content.children[1]);
     }
   }
-});
+})();
