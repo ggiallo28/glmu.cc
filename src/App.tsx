@@ -34,7 +34,7 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
       "State-machine flow orchestrators preventing infinite execution run loops.",
       "Custom cost-containment dashboards with automatic budget threshold limits."
     ],
-    verification: "Verified pattern: cost visibility is a discipline, not a slogan — every engagement runs on transparent, hourly-tracked billing agreed before work starts. The same discipline gets designed into agent platforms: budget thresholds and circuit-breakers specified upfront, before the first token is spent, not added after a runaway bill."
+    verification: "Verified pattern: cost visibility is a discipline, not a slogan — every engagement runs on transparent, hourly-tracked billing agreed before work starts. The same discipline is designed into agent platforms from day one: budget thresholds and circuit-breakers specified upfront, before the first token is spent."
   },
   training: {
     title: "Enterprise Engineering Enablement",
@@ -46,7 +46,7 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
       "Practical sandbox incident response blueprints and live scenario guides.",
       "Comprehensive platform reviews and custom architecture reference guidebooks."
     ],
-    verification: "Validated in production: Instructed over three thousand system engineers on high-availability patterns. Maintained official certification trainer status with premier technical partner networks across Europe."
+    verification: "Verified pattern: on one data-engineering engagement, 27% of total billed hours went to team training, knowledge transfer, and documentation, delivered alongside the technical build. Backed by an AWS Champion Instructor credential (Credly-verified since 2018) and 6 published Manning Publications liveProjects reaching engineers directly."
   }
 };
 
@@ -176,6 +176,43 @@ export default function App() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // WebMCP: the connect icon renders eagerly (matches its sibling social icons from
+  // first paint, no placeholder swap needed), but the widget library and its site
+  // config (~56 KB combined) only load on click.
+  const mcpLoadingRef = useRef(false);
+  const handleMcpConnect = () => {
+    const findRealTrigger = () => {
+      const wrapper = document.querySelector('[id^="webmcp-widget"]');
+      return wrapper ? (wrapper.querySelector('.webmcp-trigger') as HTMLElement | null) : null;
+    };
+
+    if (mcpLoadingRef.current) {
+      const rt = findRealTrigger();
+      if (rt) rt.click();
+      return;
+    }
+    mcpLoadingRef.current = true;
+
+    const webmcpScript = document.createElement('script');
+    webmcpScript.src = '/webmcp.js';
+    webmcpScript.onload = () => {
+      const initScript = document.createElement('script');
+      initScript.src = '/webmcp-init.min.js';
+      initScript.onload = () => {
+        const poll = setInterval(() => {
+          const rt = findRealTrigger();
+          if (rt) {
+            rt.style.display = 'none';
+            clearInterval(poll);
+            setTimeout(() => rt.click(), 50);
+          }
+        }, 20);
+      };
+      document.head.appendChild(initScript);
+    };
+    document.head.appendChild(webmcpScript);
+  };
 
   // Lazy-loaded VAT Modal (code-split: only fetched on click)
   const VatModal = lazy(() => import('./VatModal'));
@@ -862,15 +899,31 @@ export default function App() {
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                   </a>
-                  <a 
-                    href="https://gmucciolo.it/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href="https://gmucciolo.it/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-1.5 rounded border border-stone-200 text-stone-600 hover:text-emerald-600 hover:border-emerald-400 transition-colors duration-300"
                     aria-label="Blog"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                   </a>
+                  <span id="mcp-anchor" className="relative inline-flex flex-shrink-0">
+                    <button
+                      id="mcp-lt"
+                      type="button"
+                      onClick={handleMcpConnect}
+                      title="Connect MCP agent"
+                      className="group w-6 h-6 rounded bg-stone-950 flex items-center justify-center cursor-pointer"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706V16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177" stroke="white" strokeWidth="12" strokeLinecap="round"/>
+                        <path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52" stroke="white" strokeWidth="12" strokeLinecap="round"/>
+                        <path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822" stroke="white" strokeWidth="12" strokeLinecap="round"/>
+                      </svg>
+                      <span className="absolute left-full ml-1 top-1/2 -translate-y-1/2 text-[9px] font-mono text-stone-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Agent Connect</span>
+                    </button>
+                  </span>
                 </div>
               </div>
             </div>

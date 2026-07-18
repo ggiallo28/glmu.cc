@@ -27,6 +27,171 @@
     }
   }
 
+  // Resolves target text into a live-updating element over a short animation,
+  // scrambling unrevealed characters before they settle - a "text diffusion" reveal.
+  function diffuseText(targetId, finalText) {
+    var el = document.getElementById(targetId);
+    if (!el) return;
+    var scrambleChars = '!<>-_\\/[]{}—=+*^?#01';
+    var totalFrames = 22;
+    var frame = 0;
+    if (el._diffuseTimer) clearInterval(el._diffuseTimer);
+    el._diffuseTimer = setInterval(function() {
+      frame++;
+      var revealCount = Math.floor(finalText.length * (frame / totalFrames));
+      var out = '';
+      for (var i = 0; i < finalText.length; i++) {
+        var ch = finalText.charAt(i);
+        out += (i < revealCount || ch === '\n' || ch === ' ') ? ch : scrambleChars.charAt(Math.floor(Math.random() * scrambleChars.length));
+      }
+      el.textContent = out;
+      if (frame >= totalFrames) {
+        el.textContent = finalText;
+        clearInterval(el._diffuseTimer);
+      }
+    }, 28);
+  }
+
+  // Creates (or relocates) the "Live Reflection" panel right after whichever
+  // section is contextually relevant to the current topic, so it never sits in one
+  // fixed spot. Built with inline styles, not Tailwind classes, since this markup
+  // is injected at runtime and Tailwind only scans source files at build time.
+  function showLiveReflection(sectionId, text) {
+    var anchor = document.getElementById(sectionId);
+    if (!anchor) return;
+
+    var existing = document.getElementById('live-reflection');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    var panel = document.createElement('section');
+    panel.id = 'live-reflection';
+    panel.style.cssText = 'padding:32px 0;border-bottom:1px solid rgba(214,211,209,0.6);background:#ffffff;' +
+      'opacity:0.01;transform:translateY(12px);transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1),transform 0.5s cubic-bezier(0.16,1,0.3,1);';
+
+    var inner = document.createElement('div');
+    inner.style.cssText = 'max-width:56rem;margin:0 auto;padding:0 24px;';
+
+    var label = document.createElement('span');
+    label.textContent = 'Live Reflection';
+    label.style.cssText = 'display:block;font-size:10px;font-family:monospace;text-transform:uppercase;letter-spacing:0.1em;color:#57534e;font-weight:500;';
+
+    var heading = document.createElement('h2');
+    heading.textContent = 'Grounded in Real Engagements';
+    heading.style.cssText = 'font-family:var(--font-display),sans-serif;font-size:20px;font-weight:700;color:#1c1917;margin:4px 0 16px;';
+
+    var box = document.createElement('div');
+    box.style.cssText = 'padding:24px;border-radius:6px;border:1px solid #e7e5e4;background:#FAF9F6;min-height:100px;display:flex;align-items:center;';
+
+    var content = document.createElement('p');
+    content.id = 'live-reflection-content';
+    content.style.cssText = 'margin:0;font-size:13px;font-family:monospace;color:#57534e;line-height:1.7;white-space:pre-wrap;';
+    box.appendChild(content);
+
+    inner.appendChild(label);
+    inner.appendChild(heading);
+    inner.appendChild(box);
+    panel.appendChild(inner);
+
+    anchor.insertAdjacentElement('afterend', panel);
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Only reveal (fade in + start the text diffusion) once the smooth scroll has
+    // actually settled, so the panel never appears half-scrolled or off-screen.
+    waitForScrollEnd(function() {
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          panel.style.opacity = '1';
+          panel.style.transform = 'translateY(0)';
+        });
+      });
+      diffuseText('live-reflection-content', text);
+    });
+  }
+
+  // Polls window.scrollY until it stops changing for a few consecutive frames,
+  // used to detect when a smooth scrollIntoView animation has actually finished
+  // (there's no native completion event for it).
+  function waitForScrollEnd(callback) {
+    var lastY = window.scrollY;
+    var stableFrames = 0;
+    var maxFrames = 180; // ~3s safety cap in case scroll never settles
+    var frame = 0;
+    function check() {
+      frame++;
+      var y = window.scrollY;
+      if (Math.abs(y - lastY) < 0.5) {
+        stableFrames++;
+        if (stableFrames >= 6 || frame >= maxFrames) { callback(); return; }
+      } else {
+        stableFrames = 0;
+      }
+      lastY = y;
+      requestAnimationFrame(check);
+    }
+    requestAnimationFrame(check);
+  }
+
+  // Real, anonymized evidence for each System Intelligence Framework pillar - drawn
+  // from actual engagement patterns (hours, budgets, technical shape), never client
+  // names or identifying specifics. Used by reflect_experience to ground the
+  // conversation in verifiable facts instead of restating positioning claims.
+  var pillars = [
+    {
+      name: 'System Intelligence',
+      section: 'glmu-identity',
+      prevSection: 'glmu-identity',
+      nextSection: 'expertise',
+      keywords: ['silo', 'coordination', 'alignment', 'cross-team', 'cross-domain', 'holistic', 'big picture', 'whole system', 'systems thinking'],
+      tagline: 'System Intelligence is the ability to see the whole system before committing to a part.',
+      evidence: 'Verified pattern: a two-hour cross-domain design review, bringing architecture, engineering, and business perspectives together before committing, prevented over 100 hours of downstream rework on one engagement.'
+    },
+    {
+      name: 'Tradeoff Reasoning',
+      section: 'scope-planner',
+      prevSection: 'scope-planner',
+      nextSection: 'testimonials',
+      keywords: ['tradeoff', 'trade-off', 'build vs buy', 'database', 'architecture decision', 'options', 'decide', 'choice', 'compare'],
+      tagline: 'I think to build, I build to understand.',
+      evidence: 'Verified pattern: evaluated database architecture tradeoffs for a 500GB analytics workload, weighing sub-second query performance against migration cost before committing to a platform.'
+    },
+    {
+      name: 'Reversibility',
+      section: 'scope-planner',
+      prevSection: 'scope-planner',
+      nextSection: 'testimonials',
+      keywords: ['migration', 'rollback', 'risk', 'reversib', 'undo', 'vendor lock', 'exit', 'lock-in'],
+      tagline: 'Choose decisions that are easy to undo. Reserve irreversible commitment for what you know.',
+      evidence: 'Verified pattern: data-platform migrations are designed with dual-write testing and rapid rollback capability, so a wrong move costs hours to undo, not quarters to renegotiate.'
+    },
+    {
+      name: 'Teachability',
+      section: 'testimonials',
+      prevSection: 'testimonials',
+      nextSection: 'contact',
+      keywords: ['train', 'onboarding', 'documentation', 'enablement', 'knowledge transfer', 'learn', 'teach', 'engineers', 'junior'],
+      tagline: 'Architecture that cannot be taught will not survive its first handover.',
+      evidence: 'Verified pattern: on one data-engineering engagement, 27% of total billed hours went to team training, knowledge transfer, and documentation, delivered alongside the technical build.'
+    },
+    {
+      name: 'Cost Visibility',
+      section: 'expertise',
+      prevSection: 'expertise',
+      nextSection: 'credentials',
+      keywords: ['cost', 'budget', 'finops', 'pricing', 'spend', 'expensive', 'billing', 'worried about cost'],
+      tagline: 'Cost discovered at invoice time is a failure of architecture. Cost visible at decision time is a feature.',
+      evidence: 'Verified pattern: every engagement runs on transparent, hourly-tracked billing with a documented budget breakdown agreed before work starts, not reconciled after the fact.'
+    },
+    {
+      name: 'Entropy Management',
+      section: 'expertise',
+      prevSection: 'expertise',
+      nextSection: 'credentials',
+      keywords: ['technical debt', 'drift', 'monitoring', 'maintenance', 'legacy', 'scale', 'complexity', 'growing'],
+      tagline: 'Entropy is the only cost that compounds without anyone authorizing it.',
+      evidence: 'Verified pattern: infrastructure monitoring runs at four layers (component, pipeline, system, business) with cost-threshold alerts, built in from the start of the engagement.'
+    }
+  ];
+
   // Human-readable formatters, used for the chat response text.
   function formatScopeDetail(d) {
     return d.title + ' (' + d.timeline + ')\n\n' + d.focus + '\n\nDeliverables:\n' +
@@ -161,6 +326,35 @@
         var text = testimonials.map(function(t) { return '"' + t.quote + '" - ' + t.role + ', ' + t.org; }).join('\n\n');
         scrollAndHighlight('testimonials');
         return { content: [{ type: 'text', text: text }] };
+      }
+    },
+    {
+      name: 'reflect_experience',
+      description: 'Renders a tailored reflection live on the page for the visitor you are currently talking to. ' +
+        'Read the evidence://pillars resource first - it has the real, verifiable evidence to ground your message in ' +
+        '(and which page sections the panel lands between, for natural "above"/"below" references). ' +
+        'You write the "message" yourself, adapted to this visitor: never state anything beyond what the evidence ' +
+        'supports, and never invent client names or specifics not present there.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          topic: { type: 'string', description: 'What the visitor is discussing - used only to anchor the panel near the most relevant section of the page' },
+          message: { type: 'string', description: 'The tailored text to display: written by you, adapted to this visitor, grounded in evidence://pillars' }
+        },
+        required: ['topic', 'message']
+      },
+      execute: function(args) {
+        var topic = (args.topic || '').toLowerCase();
+        var message = (args.message || '').trim();
+        if (!message) {
+          return { content: [{ type: 'text', text: 'Error: message is required - compose a tailored, evidence-grounded reflection for this visitor.' }] };
+        }
+        var matches = pillars.filter(function(p) {
+          return p.keywords.some(function(k) { return topic.indexOf(k) !== -1; });
+        });
+        var section = matches.length ? matches[0].section : pillars[0].section;
+        showLiveReflection(section, message);
+        return { content: [{ type: 'text', text: message }] };
       }
     },
     {
@@ -344,6 +538,23 @@
     }
   );
 
+  mcp.registerResource(
+    'engagement-evidence',
+    'Real, anonymized evidence per System Intelligence pillar - read this before calling reflect_experience to ground your message in verifiable facts',
+    { uri: 'evidence://pillars', mimeType: 'text/markdown' },
+    function(uri) {
+      var md = '# Engagement evidence, by System Intelligence pillar\n\n' +
+        'Ground any reflect_experience message in these facts only. Never state anything beyond what a ' +
+        'pillar\'s evidence supports, and never invent client names or specifics not present here.\n\n' +
+        pillars.map(function(p) {
+          return '## ' + p.name + '\n\nTagline: "' + p.tagline + '"\n\nEvidence: ' + p.evidence +
+            '\n\nPanel placement: lands between section://' + p.prevSection + ' (above) and section://' + p.nextSection + ' (below) ' +
+            '- read those resources if you want to reference their actual content in your message.\n';
+        }).join('\n') ;
+      return { contents: [{ uri: uri, mimeType: 'text/markdown', text: md }] };
+    }
+  );
+
   // Prompts
   mcp.registerPrompt(
     'site-summary',
@@ -408,39 +619,20 @@
   }
   protectTriggerIcon();
 
-  // Reposition widget: move from fixed floating to inline next to blog icon
+  // Move the widget into the connect button's own (already correctly laid-out,
+  // position:relative) anchor wrapper, instead of computing viewport coordinates.
+  // The anchor is real React markup that renders at the right spot from first
+  // paint, so this is a plain reparent - no pixel math, no timing dependency.
   var widget = document.getElementById(mcp.elementId);
-  if (widget) {
-    // Find the blog link and its parent social container
-    var blogLink = document.querySelector('a[aria-label="Blog"]');
-    if (blogLink) {
-      var socialContainer = blogLink.parentElement;
-      if (socialContainer) {
-        // Insert widget after the blog link
-        blogLink.insertAdjacentElement('afterend', widget);
-        // Override fixed positioning to flow inline
-        widget.style.position = 'relative';
-        widget.style.zIndex = '';
-        widget.style.bottom = '';
-        widget.style.right = '';
-        // Match the social icon sizing/styling
-        var trigger = widget.querySelector('.webmcp-trigger');
-        if (trigger) {
-          trigger.style.width = '24px';
-          trigger.style.height = '24px';
-          trigger.style.borderRadius = '4px';
-          trigger.title = 'Connect MCP agent - paste connection token';
-          trigger.innerHTML = '<svg width="14" height="14" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706V16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822" stroke="white" stroke-width="12" stroke-linecap="round"/></svg>';
-        }
-        // Add a small hidden instruction line that appears on hover
-        var instructions = document.createElement('span');
-        instructions.textContent = 'Agent Connect';
-        instructions.style.cssText = 'position:absolute;left:calc(100% + 4px);top:50%;transform:translateY(-50%);font-size:9px;font-family:monospace;color:#78716c;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s;';
-        widget.appendChild(instructions);
-        widget.addEventListener('mouseenter', function() { instructions.style.opacity = '1'; });
-        widget.addEventListener('mouseleave', function() { instructions.style.opacity = '0'; });
-      }
-    }
+  var anchorEl = document.getElementById('mcp-anchor');
+  if (widget && anchorEl) {
+    anchorEl.appendChild(widget);
+    widget.style.position = 'absolute';
+    widget.style.top = '0';
+    widget.style.right = '0';
+    widget.style.left = '';
+    widget.style.bottom = '';
+    widget.style.zIndex = '50';
   }
 
   // Add connection instructions inside the modal
@@ -450,7 +642,7 @@
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_overview for the firm\'s positioning tagline, get_firm_profile for ideal-client profile and operating philosophy, get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, get_testimonials for client references, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current) or a specific page section (section://{elementId}).';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_overview for the firm\'s positioning tagline, get_firm_profile for ideal-client profile and operating philosophy, get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, get_testimonials for client references, reflect_experience(topic, message) where you first read the evidence://pillars resource, then write a tailored message grounded in it, adapted to whatever we\'re discussing, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current), a specific page section (section://{elementId}), or the grounded engagement evidence (evidence://pillars).';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +
