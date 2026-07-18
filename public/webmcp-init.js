@@ -347,6 +347,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   );
 
+  // Watch the connection-status element and rephrase auth/registration failures
+  // into actionable messages (the minified webmcp.js only says "Authorization failed"
+  // or "Disconnected", which doesn't tell the user to generate a fresh token).
+  function watchStatus() {
+    var el = document.querySelector('#' + CSS.escape(mcp.elementId) + ' .webmcp-status');
+    if (!el) { setTimeout(watchStatus, 500); return; }
+    var obs = new MutationObserver(function() {
+      var t = el.textContent || '';
+      if (/authorization/i.test(t) || /invalid token/i.test(t) || /registration failed/i.test(t)) {
+        el.innerHTML = '✕ <strong>Token expired or invalid</strong> — generate a fresh one:<br><code style="font-size:10px;background:#292524;color:#fafaf9;padding:2px 6px;border-radius:3px;display:inline-block;margin:4px 0;">npx @jason.today/webmcp --new</code>';
+      } else if (/disconnected/i.test(t) && t.length < 30) {
+        // Rewrite bare "Disconnected" to include the refresh action
+        el.innerHTML = '⏎ <strong>Disconnected</strong> — paste a new token to reconnect';
+      }
+    });
+    obs.observe(el, { childList: true, subtree: true, characterData: true });
+  }
+  watchStatus();
+
+  // Restore the link-chain SVG icon on the trigger whenever the library clears it
+  // (webmcp.js sets trigger.innerHTML = "" on disconnect, wiping our custom icon).
+  function protectTriggerIcon() {
+    var trigger = document.querySelector('#' + CSS.escape(mcp.elementId) + ' .webmcp-trigger');
+    if (!trigger) { setTimeout(protectTriggerIcon, 500); return; }
+    var svg = '<svg width="14" height="14" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706V16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52" stroke="white" stroke-width="12" stroke-linecap="round"/><path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822" stroke="white" stroke-width="12" stroke-linecap="round"/></svg>';
+    function restore() {
+      if (!trigger.querySelector('svg')) {
+        trigger.innerHTML = svg;
+      }
+    }
+    restore();
+    var obs = new MutationObserver(restore);
+    obs.observe(trigger, { childList: true, subtree: true });
+  }
+  protectTriggerIcon();
+
   // Reposition widget: move from fixed floating to inline next to blog icon
   var widget = document.getElementById(mcp.elementId);
   if (widget) {
