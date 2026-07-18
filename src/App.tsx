@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'preact/hooks';
+import { lazy, Suspense } from 'preact/compat';
+import type { VatData } from './VatModal';
 
 interface ScopeDetail {
   title: string;
@@ -175,16 +177,12 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  // Lazy-loaded VAT Modal (code-split: only fetched on click)
+  const VatModal = lazy(() => import('./VatModal'));
+
   // VAT Modal State
   const [vatModalOpen, setVatModalOpen] = useState(false);
-  const [vatData, setVatData] = useState<{
-    isValid?: boolean;
-    requestDate?: string;
-    msCode?: string;
-    vatNumber?: string;
-    name?: string;
-    address?: string;
-  } | null>(null);
+  const [vatData, setVatData] = useState<VatData | null>(null);
 
   const fetchVatData = () => {
     setVatModalOpen(true);
@@ -197,17 +195,6 @@ export default function App() {
       address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'
     });
   };
-
-  useEffect(() => {
-    if (!vatModalOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setVatModalOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [vatModalOpen]);
 
   const toggleMobileDomain = (domain: 'infrastructure' | 'ai' | 'training') => {
     if (expandedMobileDomains.includes(domain)) {
@@ -317,7 +304,7 @@ export default function App() {
       <main id="main-content" className="flex-grow">
       
       {/* HERO SECTION */}
-      <section className="relative py-20 sm:py-28 border-b border-stone-200/60 overflow-hidden" id="glmu-hero">
+      <section className="relative py-20 sm:py-28 border-b border-stone-200/60 overflow-hidden scroll-mt-20" id="glmu-hero">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center relative z-10">
           <span className="inline-block px-3 py-1 rounded bg-stone-100 text-stone-800 font-mono text-[10px] uppercase tracking-widest mb-4 font-medium">
             Data Driven Architecture
@@ -343,7 +330,7 @@ export default function App() {
         </div>
       </section>
       {/* IDENTITY / FIRM PROFILE */}
-          <section className="py-16 border-b border-stone-200/60 bg-[#FAF9F6]" id="glmu-identity">
+          <section className="py-16 border-b border-stone-200/60 bg-[#FAF9F6] scroll-mt-20" id="glmu-identity">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-4 space-y-6">
@@ -380,7 +367,7 @@ export default function App() {
       </section>
 
       {/* TECHNICAL DEPTH & ARCHITECTURE COMPETENCIES */}
-      <section className="py-20 border-b border-stone-200/60 bg-white" id="expertise">
+      <section className="py-20 border-b border-stone-200/60 bg-white scroll-mt-20" id="expertise">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-14">
             <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Practice Streams</span>
@@ -582,7 +569,7 @@ export default function App() {
       </section>
 
       {/* VERIFIABLE CREDENTIALS */}
-      <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6]" id="credentials">
+      <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6] scroll-mt-20" id="credentials">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-12">
             <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Verifiable Credentials</span>
@@ -712,7 +699,7 @@ export default function App() {
       </section>
 
       {/* INTERACTIVE COMPONENT - SCOPE DETAILS */}
-      <section className="py-20 border-b border-stone-200/60 bg-white" id="scope-planner">
+      <section className="py-20 border-b border-stone-200/60 bg-white scroll-mt-20" id="scope-planner">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Scope Overview</span>
@@ -799,7 +786,7 @@ export default function App() {
       </section>
 
       {/* CLIENT TESTIMONIALS */}
-      <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6]" id="testimonials">
+      <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6] scroll-mt-20" id="testimonials">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-10 text-center md:text-left">
             <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Institutional Trust</span>
@@ -919,99 +906,11 @@ export default function App() {
         </div>
       </footer>
 
-      {/* VAT VERIFICATION MODAL */}
+      {/* VAT VERIFICATION MODAL (lazy-loaded via code-split) */}
       {vatModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs transition-opacity duration-300"
-          onClick={() => setVatModalOpen(false)}
-          id="vat-modal-overlay"
-        >
-          <div 
-            className="w-full max-w-md bg-white border border-stone-200 rounded shadow-xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-            id="vat-modal-content"
-          >
-            {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between bg-stone-50">
-              <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-semibold">VIES VAT Registry Status</span>
-              </div>
-              <button 
-                onClick={() => setVatModalOpen(false)}
-                className="text-stone-600 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-100 cursor-pointer"
-                aria-label="Close modal"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <div className="p-6 space-y-5">
-              {vatData && (
-                <>
-                  <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">VAT Number</span>
-                      <span className="text-sm font-mono font-semibold text-stone-900">{vatData.msCode}{vatData.vatNumber}</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Status</span>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200/50">
-                        {vatData.isValid ? 'Valid' : 'Invalid'}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">Company / Entity</span>
-                      <p className="text-xs font-semibold text-stone-900">{vatData.name || 'MUCCIOLO GIANLUIGI'}</p>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">Registered Address</span>
-                      <p className="text-xs text-stone-600 whitespace-pre-line leading-relaxed font-light">
-                        {vatData.address || 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 pt-2">
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Country</span>
-                        <p className="text-xs font-light text-stone-800">Italy (IT)</p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Query Date</span>
-                        <p className="text-[10px] font-mono text-stone-600">
-                          {vatData.requestDate ? new Date(vatData.requestDate).toLocaleString() : new Date().toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </>)}
-            </div>
-
-            {/* Modal Footer */}
-            <div className="px-6 py-4 bg-stone-50 border-t border-stone-100 flex flex-col sm:flex-row gap-3 items-center justify-between">
-              <a 
-                href="https://ec.europa.eu/taxation_customs/vies/#/vat-validation"
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 text-xs text-stone-600 hover:text-stone-900 border-b border-stone-300 hover:border-stone-900 pb-0.5 transition-all font-mono font-medium"
-              >
-                <span>Official VIES Validation</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-              </a>
-              <button 
-                onClick={() => setVatModalOpen(false)}
-                className="w-full sm:w-auto px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-wider rounded transition-colors cursor-pointer"
-              >
-                Close Portal
-              </button>
-            </div>
-          </div>
-        </div>
+        <Suspense fallback={null}>
+          <VatModal data={vatData} onClose={() => setVatModalOpen(false)} />
+        </Suspense>
       )}
     </div>
   );
