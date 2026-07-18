@@ -1,0 +1,52 @@
+# GLMU Consulting — Gianluigi Mucciolo
+
+> Sovereign cloud architect & enterprise AI advisor. I help organizations design, build, and operate secure cloud-native platforms with AI capabilities at their core.
+
+## Who I Am
+
+**Gianluigi Mucciolo** — independent consultant at GLMU Consulting, based in Italy. I work hands-on with engineering teams to design cloud architectures, modernize platforms, and embed AI into production systems. My focus is on **sovereign infrastructure** (EU data residency, regulatory compliance) and **enterprise-grade AI enablement**.
+
+## Credentials
+
+| Certification | Issuer |
+|---|---|
+| Professional Cloud Architect | Google Cloud |
+| AI & ML Engineer (AAI) | AWS |
+| Certified Kubernetes Administrator (CKA) | CNCF |
+| Certified Kubernetes Application Developer (CKAD) | CNCF |
+| Terraform Associate | HashiCorp |
+
+## Core Competencies
+
+- **Cloud Architecture** — multi-cloud (GCP, AWS), landing zones, network design, IAM, cost optimization
+- **Kubernetes & Containers** — cluster design, operators, GitOps (Flux/ArgoCD), service mesh, security policies
+- **AI/ML Platforms** — MLOps pipelines, model serving (KServe, vLLM), RAG architectures, LLM orchestration
+- **Infrastructure as Code** — Terraform, Pulumi, Crossplane, policy-as-code (OPA, Kyverno)
+- **Platform Engineering** — internal developer platforms (IDPs), Backstage, CNCF ecosystem, golden paths
+- **Enterprise Enablement** — technical workshops, team coaching, architecture reviews, migration roadmaps
+
+## Services
+
+- **Architecture Design** — cloud-native and AI system design, trade-off analysis, decision records
+- **Platform Build** — end-to-end implementation of Kubernetes platforms, AI infrastructure, CI/CD pipelines
+- **Team Enablement** — hands-on coaching, workshops, internal developer platform adoption
+- **Review & Audit** — architecture reviews, security posture assessments, cost reviews, incident post-mortems
+
+## Engagement Model
+
+- Short-term: architecture reviews, advisory calls, technical assessments (1–5 days)
+- Medium-term: platform builds, migrations, AI enablement programs (2–12 weeks)
+- Retainer: fractional cloud architect, ongoing advisory (monthly)
+
+## Site Structure (glmu.cc)
+
+- Single-page site with sections: hero → identity → competencies → credentials → scope → contact
+- Contact form (client-side validation, no backend — simulated submit)
+- VAT modal with hardcoded public registry data
+- Built with React 19 + TypeScript, Tailwind CSS v4, Vite 6
+
+## Contact
+
+- GitHub: [github.com/glmu](https://github.com/glmu)
+- Site: [www.glmu.cc](https://www.glmu.cc)
+- LinkedIn: [linkedin.com/in/gianluigimu](https://linkedin.com/in/gianluigimu)
