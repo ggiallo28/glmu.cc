@@ -622,7 +622,8 @@ export default function App() {
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
                   src="/google-cloud-logo.svg" 
-                  alt="Google Cloud Official Logo" 
+                  alt="Google Cloud" 
+                  width="181" height="28"
                   className={`h-[26px] sm:h-[30px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 0) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
@@ -656,7 +657,8 @@ export default function App() {
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
                   src="/aws-logo.svg" 
-                  alt="Amazon Web Services Official Logo" 
+                  alt="Amazon Web Services" 
+                  width="304" height="182"
                   className={`h-[38px] sm:h-[44px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 1) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
@@ -690,7 +692,8 @@ export default function App() {
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
                   src="/cncf-logo.svg" 
-                  alt="Cloud Native Computing Foundation Logo" 
+                  alt="Cloud Native Computing Foundation" 
+                  width="399" height="76"
                   className={`h-[26px] sm:h-[30px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 2) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
