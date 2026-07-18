@@ -2,57 +2,32 @@
 document.addEventListener('DOMContentLoaded', function() {
   var mcp = new WebMCP({ color: '#292524', size: '24px', padding: '0' });
 
-  // Scrolls a section into view and briefly outlines it, so a human watching the
+  // Scrolls a section into view, aligned to its top, so a human watching the
   // page can see which part of the site an agent's answer came from.
   function scrollAndHighlight(sectionId) {
     var el = document.getElementById(sectionId);
     if (!el) return null;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    var prevTransition = el.style.transition;
-    var prevOutline = el.style.outline;
-    var prevOutlineOffset = el.style.outlineOffset;
-    var prevBoxShadow = el.style.boxShadow;
-    el.style.transition = 'box-shadow 0.3s ease, outline 0.3s ease';
-    el.style.outline = '2px solid #2563EB';
-    el.style.outlineOffset = '4px';
-    el.style.boxShadow = '0 0 0 6px rgba(37, 99, 235, 0.15)';
-    setTimeout(function() {
-      el.style.transition = prevTransition;
-      el.style.outline = prevOutline;
-      el.style.outlineOffset = prevOutlineOffset;
-      el.style.boxShadow = prevBoxShadow;
-    }, 2500);
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return el;
   }
 
-  // Shows the same answer text returned to the chat as a floating bubble anchored
-  // to the relevant section, so it's visible on the page too. Only one at a time.
-  var activeBubble = null;
-  function showBubble(anchorEl, text) {
-    if (!anchorEl) return;
-    if (activeBubble && activeBubble.parentNode) activeBubble.parentNode.removeChild(activeBubble);
-
-    var bubble = document.createElement('div');
-    bubble.textContent = text;
-    bubble.style.cssText = 'position:absolute;z-index:9998;max-width:340px;max-height:220px;overflow:auto;' +
-      'background:#292524;color:#fafaf9;padding:10px 14px;border-radius:8px;font-family:monospace;' +
-      'font-size:11px;line-height:1.6;box-shadow:0 8px 24px rgba(0,0,0,0.25);white-space:pre-wrap;';
-
-    var rect = anchorEl.getBoundingClientRect();
-    bubble.style.top = (window.scrollY + rect.top + 12) + 'px';
-    bubble.style.left = (window.scrollX + Math.max(rect.left, 12)) + 'px';
-
-    document.body.appendChild(bubble);
-    activeBubble = bubble;
-
-    setTimeout(function() {
-      if (bubble.parentNode) bubble.parentNode.removeChild(bubble);
-      if (activeBubble === bubble) activeBubble = null;
-    }, 8000);
+  // Activates the matching tab (desktop) or expands the matching accordion panel
+  // (mobile) in the "Bespoke Engagement Models" section, whichever is visible.
+  function selectScopeTab(key) {
+    var desktopBtn = document.querySelector('[data-domain="' + key + '"]');
+    if (desktopBtn && desktopBtn.offsetParent !== null) {
+      desktopBtn.click();
+      return;
+    }
+    var panel = document.getElementById('mob-panel-' + key);
+    var container = document.getElementById('mob-container-' + key);
+    if (panel && container && panel.classList.contains('hidden')) {
+      var btn = container.querySelector('button');
+      if (btn) btn.click();
+    }
   }
 
-  // Human-readable formatters, used for both the chat response and the on-page
-  // bubble, so neither shows a raw JSON dump.
+  // Human-readable formatters, used for the chat response text.
   function formatScopeDetail(d) {
     return d.title + ' (' + d.timeline + ')\n\n' + d.focus + '\n\nDeliverables:\n' +
       d.deliverables.map(function(item) { return '• ' + item; }).join('\n');
@@ -98,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         var detail = details[args.key];
         var text = detail ? formatScopeDetail(detail) : 'Scope not found. Available: infrastructure, ai, training';
-        showBubble(scrollAndHighlight('scope-planner'), text);
+        scrollAndHighlight('scope-planner');
+        if (detail) selectScopeTab(args.key);
         return { content: [{ type: 'text', text: text }] };
       }
     },
@@ -113,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
           { provider: 'CNCF', certs: ['Certified Kubernetes Administrator (CKA)', 'Certified Kubernetes App Developer (CKAD)'] }
         ];
         var text = formatCredentials(credentials);
-        showBubble(scrollAndHighlight('credentials'), text);
+        scrollAndHighlight('credentials');
         return { content: [{ type: 'text', text: text }] };
       }
     },
@@ -124,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       execute: function() {
         var contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
         var text = formatContact(contact);
-        showBubble(scrollAndHighlight('contact'), text);
+        scrollAndHighlight('contact');
         return { content: [{ type: 'text', text: text }] };
       }
     },
@@ -141,7 +117,49 @@ document.addEventListener('DOMContentLoaded', function() {
           { domain: 'Security & Observability', technologies: ['IAM / KMS', 'OpenTelemetry', 'Serverless', 'Event-Driven', 'Pub/Sub'] }
         ];
         var text = formatCompetencies(competencies);
-        showBubble(scrollAndHighlight('expertise'), text);
+        scrollAndHighlight('expertise');
+        return { content: [{ type: 'text', text: text }] };
+      }
+    },
+    {
+      name: 'get_overview',
+      description: 'Get the firm\'s positioning tagline and opening summary',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var text = 'Data Driven Architecture\n\n' +
+          'Untangling Technical Tradeoffs. Before Cost & Entropy Take Over.\n\n' +
+          'Reasoning through the complex architectural decisions that define the next two to three years. ' +
+          'Delivering rigorous decision models with explicit tradeoffs so technology organizations can navigate their own unique context.';
+        scrollAndHighlight('glmu-hero');
+        return { content: [{ type: 'text', text: text }] };
+      }
+    },
+    {
+      name: 'get_firm_profile',
+      description: 'Get the firm profile: ideal client partners and the operating philosophy behind engagements',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var text = 'Operational Integrity\n\n' +
+          'Ideal Partners: fast-growing Series B through D technology organizations (typically 50 to 500 people) whose early architectural decisions are beginning to manifest as operational drag.\n\n' +
+          'Scaleups accumulate technical decisions rapidly. By the time cost and entropy take over, critical path-dependent choices have already been made, and their original reasoning is lost.\n\n' +
+          'Addressing this requires System Intelligence, a cohesive framework for technical reasoning that bridges the gap between Cloud, Data, and AI. ' +
+          'Evaluating architectures through reversibility, blast radiuses, and path dependencies ensures they remain modular, cost-efficient, and maintainable under professional responsibility.\n\n' +
+          '"Every system built and reviewed points back to the exact same truth, the critical decisions underneath."';
+        scrollAndHighlight('glmu-identity');
+        return { content: [{ type: 'text', text: text }] };
+      }
+    },
+    {
+      name: 'get_testimonials',
+      description: 'Get client advisory board testimonials',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var testimonials = [
+          { quote: 'Restructured core spatial intelligence platform boundaries. Their focus on automated resource containment metrics saved significant operational overhead.', role: 'VP of Telecommunications', org: 'Telco Global Europe' },
+          { quote: 'Training execution is exemplary. Having key systems builders taught directly by Champion-level instructors has established complete internal deployment autonomy.', role: 'Director of Enterprise Enablement', org: 'ATP Group' }
+        ];
+        var text = testimonials.map(function(t) { return '"' + t.quote + '" - ' + t.role + ', ' + t.org; }).join('\n\n');
+        scrollAndHighlight('testimonials');
         return { content: [{ type: 'text', text: text }] };
       }
     },
@@ -244,15 +262,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (success && !settled) {
                   settled = true;
                   observer.disconnect();
-                  var successText = 'Form filled and submitted successfully. Inquiry registered - an architect will connect shortly.';
-                  showBubble(section, successText);
-                  resolve({ content: [{ type: 'text', text: successText }] });
+                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted successfully. Inquiry registered - an architect will connect shortly.' }] });
                 } else if (error && !settled) {
                   settled = true;
                   observer.disconnect();
-                  var errorText = 'Form filled and submitted, but the site reported an error: ' + error.textContent;
-                  showBubble(section, errorText);
-                  resolve({ content: [{ type: 'text', text: errorText }] });
+                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted, but the site reported an error: ' + error.textContent }] });
                 }
               });
               observer.observe(section, { childList: true, subtree: true });
@@ -262,9 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!settled) {
                   settled = true;
                   observer.disconnect();
-                  var timeoutText = 'Form filled and submitted; could not confirm the result within the timeout - please check the page.';
-                  showBubble(section, timeoutText);
-                  resolve({ content: [{ type: 'text', text: timeoutText }] });
+                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted; could not confirm the result within the timeout - please check the page.' }] });
                 }
               }, 10000);
             });
@@ -425,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current) or a specific page section (section://{elementId}).';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_overview for the firm\'s positioning tagline, get_firm_profile for ideal-client profile and operating philosophy, get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, get_testimonials for client references, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current) or a specific page section (section://{elementId}).';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +

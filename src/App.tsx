@@ -736,6 +736,7 @@ export default function App() {
                   return (
                     <button
                       key={key}
+                      data-domain={key}
                       onClick={() => setSelectedDomain(key)}
                       className={`${baseClass} ${activeClass}`}
                     >
