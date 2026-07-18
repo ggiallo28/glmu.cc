@@ -144,14 +144,31 @@ export default function App() {
     };
   }, []);
 
-  // Lazy-loaded Contact Form
+  // Lazy-loaded Contact Form: fetched only once the contact section nears the viewport,
+  // so it's off the initial-load critical path.
   const [ShowForm, setShowForm] = useState<boolean>(false);
   const [FormComponent, setFormComponent] = useState<any>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
   useEffect(() => {
-    import('./ContactForm').then(mod => {
-      setFormComponent(() => mod.default);
-      setShowForm(true);
-    });
+    const el = contactSectionRef.current;
+    if (!el) return;
+
+    const loadForm = () => {
+      import('./ContactForm').then(mod => {
+        setFormComponent(() => mod.default);
+        setShowForm(true);
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        observer.disconnect();
+        loadForm();
+      }
+    }, { rootMargin: '200px' });
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   // VAT Modal State
@@ -809,7 +826,7 @@ export default function App() {
       </section>
 
       {/* CONTACT PORTAL */}
-      <section className="py-20 bg-white scroll-mt-20" id="contact">
+      <section className="py-20 bg-white scroll-mt-20" id="contact" ref={contactSectionRef}>
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-5 flex flex-col justify-between">
