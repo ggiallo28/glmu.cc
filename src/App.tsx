@@ -166,15 +166,16 @@ export default function App() {
     vatNumber?: string;
     name?: string;
     address?: string;
-    error?: string;
   } | null>(null);
+
+  const VAT_API_URL = 'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/IT/vat/06158220654';
 
   const fetchVatData = async () => {
     setVatModalOpen(true);
     setVatLoading(true);
     setVatData(null);
     try {
-      const response = await fetch('https://ec.europa.eu/taxation_customs/vies/rest-api/ms/IT/vat/06158220654');
+      const response = await fetch(VAT_API_URL);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -182,21 +183,14 @@ export default function App() {
       setVatData({
         isValid: data.isValid,
         requestDate: data.requestDate,
-        msCode: data.msCode,
+        msCode: VAT_API_URL.match(/\/ms\/(\w+)\/vat\//)?.[1] || 'IT',
         vatNumber: data.vatNumber,
         name: data.name,
         address: data.address
       });
     } catch (err: any) {
-      console.warn("VIES API live fetch bypassed/failed: loading official registered fallback details.", err);
-      setVatData({
-        isValid: true,
-        requestDate: new Date().toISOString(),
-        msCode: 'IT',
-        vatNumber: '06158220654',
-        name: 'MUCCIOLO GIANLUIGI',
-        address: 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'
-      });
+      console.warn("VIES API unavailable.", err);
+      setVatData(null);
     } finally {
       setVatLoading(false);
     }
@@ -1137,12 +1131,6 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-
-                  {vatData.error && (
-                    <div className="p-2 bg-amber-50/50 border border-amber-200/50 rounded text-[9px] font-mono text-amber-700">
-                      Note: {vatData.error}
-                    </div>
-                  )}
                 </>
               ) : (
                 <div className="text-center py-6 text-stone-500 text-xs font-light">
