@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="GLMU Consulting — sovereign cloud architectures, enterprise AI & enablement. Bespoke design for organisations that outgrow off-the-shelf solutions." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' ws: wss:; base-uri 'self'; form-action 'self'; block-all-mixed-content">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' ws: wss:; base-uri 'self'; form-action 'self'; block-all-mixed-content">
     <title>GLMU Consulting | Cloud Enterprise Systems</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,120 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" crossorigin>
     <!-- WebMCP: MCP client widget for LLM/agent interaction -->
     <script src="/webmcp.js"></script>
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        const mcp = new WebMCP({ color: '#292524' });
-
-        // Tools
-        mcp.registerTool(
-          'get_scope_details',
-          'Get details about a specific engagement scope: infrastructure, ai, or training',
-          { key: { type: 'string', description: 'Scope key: infrastructure, ai, or training' } },
-          function(args) {
-            const details = {
-              infrastructure: {
-                title: 'Multi-Tenant Platform Foundations',
-                timeline: '3-6 Weeks',
-                focus: 'Deploying secure multi-tenant isolation boundaries, establishing granular KMS custody encryption keys, and engineering reusable infrastructure templates via Terraform.',
-                deliverables: ['Private VPC subnet networks, security groups, and IAM roles', 'Modular Terraform templates for separate staging environments', 'Automated infrastructure drift checks and policy verification rules']
-              },
-              ai: {
-                title: 'Sovereign AI & Agent Platform Design',
-                timeline: '3-6 Weeks',
-                focus: 'Building robust multi-context semantic memory databases, implementing rigid model safety execution filters, and designing custom agent budget limit circuit-breakers.',
-                deliverables: ['Dedicated context database clusters and secure API proxy gateways', 'State-machine flow orchestrators preventing infinite execution loops', 'Custom cost-containment dashboards with automatic budget threshold limits']
-              },
-              training: {
-                title: 'Enterprise Engineering Enablement',
-                timeline: '3-6 Weeks',
-                focus: 'Providing authorized hyper-scaler training tracks, delivering targeted platform architecture reviews, and coaching engineering teams to achieve deep deployment autonomy.',
-                deliverables: ['Official certification exam study resources and practice tracks', 'Practical sandbox incident response blueprints and live scenario guides', 'Comprehensive platform reviews and custom architecture reference guidebooks']
-              }
-            };
-            const detail = details[args.key];
-            if (!detail) return { content: [{ type: 'text', text: 'Scope not found. Available: infrastructure, ai, training' }] };
-            return { content: [{ type: 'text', text: JSON.stringify(detail, null, 2) }] };
-          }
-        );
-
-        mcp.registerTool(
-          'get_credentials',
-          'Get certified professional credentials and benchmarks',
-          {},
-          function() {
-            const credentials = [
-              { provider: 'Google Cloud', certs: ['Professional Cloud Architect (PCA-9831)', 'Generative AI Leader (GAIL-2301)'] },
-              { provider: 'Amazon Web Services', certs: ['Authorized Instructor (AAI-CHAMP-8822)', 'Professional Solutions Architect (SAP-C02)'] },
-              { provider: 'CNCF', certs: ['Certified Kubernetes Administrator (CKA)', 'Certified Kubernetes App Developer (CKAD)'] }
-            ];
-            return { content: [{ type: 'text', text: JSON.stringify(credentials, null, 2) }] };
-          }
-        );
-
-        mcp.registerTool(
-          'get_contact',
-          'Get contact information and social links for GLMU Consulting',
-          {},
-          function() {
-            const contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
-            return { content: [{ type: 'text', text: JSON.stringify(contact, null, 2) }] };
-          }
-        );
-
-        mcp.registerTool(
-          'get_competencies',
-          'Get core technical competencies offered by GLMU Consulting',
-          {},
-          function() {
-            const competencies = [
-              { domain: 'Cloud & Container Platforms', technologies: ['Multi-Cloud', 'Kubernetes', 'Helm', 'Terraform', 'VPC Isolation'] },
-              { domain: 'DevOps & Cost Architecture', technologies: ['CI/CD Pipelines', 'Ansible', 'FinOps', 'Resource Optimization'] },
-              { domain: 'Data & Real-time Analytics', technologies: ['Apache Spark', 'Apache Kafka', 'Apache Flink', 'Data Lakes', 'DWH'] },
-              { domain: 'AI/ML Systems Engineering', technologies: ['Python', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'] },
-              { domain: 'Security & Observability', technologies: ['IAM / KMS', 'OpenTelemetry', 'Serverless', 'Event-Driven', 'Pub/Sub'] }
-            ];
-            return { content: [{ type: 'text', text: JSON.stringify(competencies, null, 2) }] };
-          }
-        );
-
-        // Resources
-        mcp.registerResource(
-          'page-html',
-          'Full page HTML content',
-          { uri: 'page://current', mimeType: 'text/html' },
-          function(uri) {
-            return { contents: [{ uri: uri, mimeType: 'text/html', text: document.documentElement.outerHTML }] };
-          }
-        );
-
-        mcp.registerResource(
-          'section-content',
-          'Content of a specific section by element ID',
-          { uriTemplate: 'section://{elementId}', mimeType: 'text/html' },
-          function(uri) {
-            const id = uri.replace('section://', '');
-            const el = document.getElementById(id);
-            if (!el) return { contents: [{ uri: uri, mimeType: 'text/plain', text: `Section "#${id}" not found` }] };
-            return { contents: [{ uri: uri, mimeType: 'text/html', text: el.outerHTML }] };
-          }
-        );
-
-        // Prompts
-        mcp.registerPrompt(
-          'site-summary',
-          'Summarize what GLMU Consulting does',
-          [],
-          function() {
-            return {
-              messages: [{
-                role: 'user',
-                content: { type: 'text', text: 'Summarize the services and expertise of GLMU Consulting based on the website content.' }
-              }]
-            };
-          }
-        );
-      });
-    </script>
+    <script src="/webmcp-init.js"></script>
   </head>
   <body class="bg-stone-50 text-stone-900 antialiased font-sans">
     <div id="root"></div>
