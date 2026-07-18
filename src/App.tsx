@@ -245,7 +245,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 pb-4 border-b border-stone-100">
             <div>
               <h3 className="font-display font-semibold text-lg sm:text-xl text-stone-900">{details.title}</h3>
-              <p className="text-[10px] font-mono text-stone-500 mt-1 uppercase tracking-wider font-medium">Engagement Track</p>
+              <p className="text-[10px] font-mono text-stone-600 mt-1 uppercase tracking-wider font-medium">Engagement Track</p>
             </div>
             <div>
               <span className="inline-block px-3 py-1 rounded bg-stone-100 text-stone-700 font-mono text-[10px] sm:text-xs uppercase tracking-wide font-medium">
@@ -256,7 +256,7 @@ export default function App() {
 
           {/* Focus Callout */}
           <div className="bg-[#FAF9F6] border-l-2 border-stone-800 p-4 rounded-r">
-            <p className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-1.5 font-medium">Primary Focus</p>
+            <p className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-1.5 font-medium">Primary Focus</p>
             <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-light italic">
               {details.focus}
             </p>
@@ -264,7 +264,7 @@ export default function App() {
 
           {/* What We Build */}
           <div>
-            <h4 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-2 sm:mb-3 font-medium">What is built</h4>
+            <h4 className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-2 sm:mb-3 font-medium">What is built</h4>
             <div className="text-xs sm:text-sm text-stone-600 leading-relaxed font-light space-y-3">
               {details.whatWeBuild.split('\n\n').map((p, idx) => (
                 <p key={idx}>{p}</p>
@@ -274,11 +274,11 @@ export default function App() {
 
           {/* Deliverables */}
           <div>
-            <h4 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-2 sm:mb-3 font-medium">Key Deliverables</h4>
+            <h4 className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-2 sm:mb-3 font-medium">Key Deliverables</h4>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 text-xs sm:text-sm text-stone-600 font-light">
               {details.deliverables.map((item, index) => (
                 <li key={index} className="flex items-start space-x-2">
-                  <span className="text-stone-500 mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-stone-600 mt-0.5 flex-shrink-0">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -288,8 +288,8 @@ export default function App() {
         
         {/* Grounded In */}
         <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-stone-100 bg-[#FAF9F6]/50 p-4 rounded border border-stone-200/40">
-          <h4 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-1.5 font-medium">Grounded in Production Reality</h4>
-          <p className="text-xs text-stone-500 font-light leading-relaxed">
+          <h4 className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-1.5 font-medium">Grounded in Production Reality</h4>
+          <p className="text-xs text-stone-600 font-light leading-relaxed">
             {details.verification}
           </p>
         </div>
@@ -366,13 +366,13 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-4 space-y-6">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-medium">Firm Profile</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Firm Profile</span>
                 <h2 className="font-display text-2xl font-bold text-stone-900 mt-2 leading-tight">
                   Operational Integrity
                 </h2>
               </div>
               <div className="p-4 bg-stone-100/60 border border-stone-200/50 rounded">
-                <span className="text-[9px] font-mono uppercase tracking-wider text-stone-500 block mb-1.5 font-medium">Ideal Partners</span>
+                <span className="text-[9px] font-mono uppercase tracking-wider text-stone-600 block mb-1.5 font-medium">Ideal Partners</span>
                 <p className="text-xs text-stone-600 leading-relaxed font-light">
                   Partnering best with fast-growing <strong className="font-medium text-stone-900">Series B through D</strong> technology organizations (typically 50 to 500 people) whose early architectural decisions are beginning to manifest as operational drag.
                 </p>
@@ -401,11 +401,11 @@ export default function App() {
       <section className="py-20 border-b border-stone-200/60 bg-white" id="expertise">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-14">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-medium">Practice Streams</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Practice Streams</span>
             <h2 className="font-display text-2xl font-normal text-stone-900 mt-1">
               Core Technical Competencies
             </h2>
-            <p className="text-xs text-stone-500 font-light mt-2 max-w-xl leading-relaxed">
+            <p className="text-xs text-stone-600 font-light mt-2 max-w-xl leading-relaxed">
               Delivering high-integrity systems engineering and detailed decision models. Core technical capabilities span the entire cloud, data, and intelligent systems stack neutrally.
             </p>
           </div>
@@ -422,13 +422,13 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 0) ? 'text-sky-500' : 'text-stone-500 group-hover:text-sky-500'
+                (isMobile && activeCompetencyCard === 0) ? 'text-sky-500' : 'text-stone-600 group-hover:text-sky-500'
               }`}>Domain 01</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 0) ? 'text-sky-950' : 'text-stone-950 group-hover:text-sky-950'
               }`}>Cloud & Container Platforms</h3>
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 0) ? 'text-stone-700' : 'text-stone-500 group-hover:text-stone-700'
+                (isMobile && activeCompetencyCard === 0) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
                 Designing multi-cloud foundations, multi-region Kubernetes, serverless architectures, declarative templates, and isolated network boundaries.
               </p>
@@ -459,13 +459,13 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 1) ? 'text-amber-500' : 'text-stone-500 group-hover:text-amber-500'
+                (isMobile && activeCompetencyCard === 1) ? 'text-amber-500' : 'text-stone-600 group-hover:text-amber-500'
               }`}>Domain 02</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 1) ? 'text-amber-950' : 'text-stone-950 group-hover:text-amber-950'
               }`}>DevOps & Cost Architecture</h3>
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 1) ? 'text-stone-700' : 'text-stone-500 group-hover:text-stone-700'
+                (isMobile && activeCompetencyCard === 1) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
                 Engineering automated change verification pipelines and formulating explicit FinOps cost models to continuously audit and optimize cloud expenditure.
               </p>
@@ -496,13 +496,13 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 2) ? 'text-orange-500' : 'text-stone-500 group-hover:text-orange-500'
+                (isMobile && activeCompetencyCard === 2) ? 'text-orange-500' : 'text-stone-600 group-hover:text-orange-500'
               }`}>Domain 03</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 2) ? 'text-orange-950' : 'text-stone-950 group-hover:text-orange-950'
               }`}>Data & Real-time Analytics</h3>
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 2) ? 'text-stone-700' : 'text-stone-500 group-hover:text-stone-700'
+                (isMobile && activeCompetencyCard === 2) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
                 Architecting parallelized ETL data ingestion pipelines, high-volume distributed stream processors, and high-performance cloud-native data warehouses.
               </p>
@@ -533,13 +533,13 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 3) ? 'text-purple-500' : 'text-stone-500 group-hover:text-purple-500'
+                (isMobile && activeCompetencyCard === 3) ? 'text-purple-500' : 'text-stone-600 group-hover:text-purple-500'
               }`}>Domain 04</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 3) ? 'text-purple-950' : 'text-stone-950 group-hover:text-purple-950'
               }`}>AI/ML Systems Engineering</h3>
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 3) ? 'text-stone-700' : 'text-stone-500 group-hover:text-stone-700'
+                (isMobile && activeCompetencyCard === 3) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
                 Deploying production-grade model orchestration pipelines, robust context memory databases, strict execution safety filters, and structured MLOps.
               </p>
@@ -570,13 +570,13 @@ export default function App() {
               }`}
             >
               <span className={`text-[9px] font-mono block mb-2 uppercase font-medium transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 4) ? 'text-rose-500' : 'text-stone-500 group-hover:text-rose-500'
+                (isMobile && activeCompetencyCard === 4) ? 'text-rose-500' : 'text-stone-600 group-hover:text-rose-500'
               }`}>Domain 05</span>
               <h3 className={`font-display font-semibold text-sm mb-1.5 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 4) ? 'text-rose-950' : 'text-stone-950 group-hover:text-rose-950'
               }`}>Security & Observability</h3>
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
-                (isMobile && activeCompetencyCard === 4) ? 'text-stone-700' : 'text-stone-500 group-hover:text-stone-700'
+                (isMobile && activeCompetencyCard === 4) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
                 Implementing granular IAM permission models, strict KMS key custody, highly resilient serverless architectures, decoupled transactional event-driven systems, and deep OpenTelemetry tracing.
               </p>
@@ -603,11 +603,11 @@ export default function App() {
       <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6]" id="credentials">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-12">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-medium">Verifiable Credentials</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Verifiable Credentials</span>
             <h2 className="font-display text-2xl font-bold text-stone-900 mt-2">
               Certified Professional Benchmarks
             </h2>
-            <p className="text-xs text-stone-500 leading-relaxed font-light mt-2 max-w-xl">
+            <p className="text-xs text-stone-600 leading-relaxed font-light mt-2 max-w-xl">
               Holding elite credentials that validate advanced multi-cloud systems engineering, secure isolation protocols, and autonomous container orchestration capabilities.
             </p>
           </div>
@@ -632,16 +632,16 @@ export default function App() {
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
-                <span className="text-[9px] font-mono text-stone-500 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Google Cloud</span>
+                <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Google Cloud</span>
                 
                 <div className="space-y-3 flex-grow mt-3">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Professional Cloud Architect</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">GCP (PCA-9831)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">GCP (PCA-9831)</span>
                   </div>
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Generative AI Leader</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">GCP (GAIL-2301)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">GCP (GAIL-2301)</span>
                   </div>
                 </div>
               </div>
@@ -666,16 +666,16 @@ export default function App() {
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
-                <span className="text-[9px] font-mono text-stone-500 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Amazon Web Services</span>
+                <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Amazon Web Services</span>
                 
                 <div className="space-y-3 flex-grow mt-3">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Authorized Instructor</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">AWS (AAI-CHAMP-8822)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">AWS (AAI-CHAMP-8822)</span>
                   </div>
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Professional Solutions Architect</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">AWS (SAP-C02)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">AWS (SAP-C02)</span>
                   </div>
                 </div>
               </div>
@@ -700,16 +700,16 @@ export default function App() {
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
-                <span className="text-[9px] font-mono text-stone-500 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Cloud Native Computing</span>
+                <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Cloud Native Computing</span>
                 
                 <div className="space-y-3 flex-grow mt-3">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Certified Kubernetes Administrator</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">CNCF (CKA)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">CNCF (CKA)</span>
                   </div>
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Certified Kubernetes App Developer</h3>
-                    <span className="text-[9px] font-mono text-stone-500 block mt-0.5">CNCF (CKAD)</span>
+                    <span className="text-[9px] font-mono text-stone-600 block mt-0.5">CNCF (CKAD)</span>
                   </div>
                 </div>
               </div>
@@ -718,7 +718,7 @@ export default function App() {
 
           {/* Validation Note */}
           <div className="mt-8 pt-5 border-t border-stone-200/60 p-4 rounded bg-white border border-stone-200/40" id="kubernetes-validation-note">
-            <h4 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-1.5 font-medium">Deployment Validation</h4>
+            <h4 className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-1.5 font-medium">Deployment Validation</h4>
             <p className="text-xs text-stone-600 font-light leading-relaxed animate-fade-in">
               Delivering secure multi-tenant platforms, AI systems, and real-time data architectures for European telecom and finance clients. Proven across 27+ architectural phases, container deployments, and hands-on training for thousands of engineers.
             </p>
@@ -730,7 +730,7 @@ export default function App() {
       <section className="py-20 border-b border-stone-200/60 bg-white" id="scope-planner">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-medium">Scope Overview</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Scope Overview</span>
             <h2 className="font-display text-2xl font-bold text-stone-900 mt-1">
               Bespoke Engagement Models
             </h2>
@@ -747,7 +747,7 @@ export default function App() {
                   const baseClass = "flex-1 py-4 text-center transition-all cursor-pointer font-mono text-xs uppercase tracking-wider border-r border-stone-200 last:border-r-0";
                   const activeClass = isActive
                     ? "bg-white font-semibold text-stone-950"
-                    : "bg-stone-50/20 text-stone-500 hover:text-stone-700 hover:bg-stone-100/50 font-medium";
+                    : "bg-stone-50/20 text-stone-600 hover:text-stone-700 hover:bg-stone-100/50 font-medium";
                   return (
                     <button
                       key={key}
@@ -772,7 +772,7 @@ export default function App() {
                 const isSelected = expandedMobileDomains.includes(key);
                 const headerClass = isSelected
                   ? "w-full flex items-center justify-between p-4 font-mono text-xs uppercase tracking-wider text-stone-950 bg-white font-semibold border-l-2 border-stone-950 cursor-pointer text-left focus:outline-none"
-                  : "w-full flex items-center justify-between p-4 font-mono text-xs uppercase tracking-wider text-stone-500 bg-stone-50/50 hover:text-stone-700 hover:bg-stone-100/30 border-l-2 border-transparent cursor-pointer text-left focus:outline-none font-medium";
+                  : "w-full flex items-center justify-between p-4 font-mono text-xs uppercase tracking-wider text-stone-600 bg-stone-50/50 hover:text-stone-700 hover:bg-stone-100/30 border-l-2 border-transparent cursor-pointer text-left focus:outline-none font-medium";
 
                 const contentClass = isSelected
                   ? "p-5 bg-white border-t border-stone-100 block"
@@ -788,7 +788,7 @@ export default function App() {
                       className={headerClass}
                     >
                       <span>{num}. {label}</span>
-                      <svg className={`w-4 h-4 transition-transform duration-300 transform ${iconRotation} text-stone-500 flex-shrink-0 ml-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-4 h-4 transition-transform duration-300 transform ${iconRotation} text-stone-600 flex-shrink-0 ml-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
@@ -804,8 +804,8 @@ export default function App() {
 
           {/* Why Bespoke Callout */}
           <div className="mt-8 p-6 bg-stone-100/50 border border-stone-200/60 rounded-lg animate-fade-in" id="why-bespoke-callout">
-            <h3 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-2 font-medium">Why "Bespoke"</h3>
-            <p className="text-xs text-stone-500 leading-relaxed font-light">
+            <h3 className="text-[10px] font-mono text-stone-600 uppercase tracking-widest mb-2 font-medium">Why "Bespoke"</h3>
+            <p className="text-xs text-stone-600 leading-relaxed font-light">
               These are not off-the-shelf packages. Timeline and scope flex based on what you already have (a greenfield foundation vs. a legacy VPC with 47 security groups) and what your production reality is (a 3-person team vs. 50 engineers across 4 time zones). The deliverables are what survives contact with your constraints, not what a generic playbook says you should build.
             </p>
           </div>
@@ -816,7 +816,7 @@ export default function App() {
       <section className="py-20 border-b border-stone-200/60 bg-[#FAF9F6]" id="testimonials">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-10 text-center md:text-left">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-medium">Institutional Trust</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Institutional Trust</span>
             <h2 className="font-display text-2xl font-bold text-stone-900 mt-2">Client Advisory Board Feedback</h2>
           </div>
 
@@ -827,7 +827,7 @@ export default function App() {
               </p>
               <div>
                 <h3 className="font-display font-bold text-stone-900 text-xs">VP of Telecommunications</h3>
-                <p className="text-[10px] font-mono text-stone-500 mt-0.5 font-medium">TELCO GLOBAL EUROPE</p>
+                <p className="text-[10px] font-mono text-stone-600 mt-0.5 font-medium">TELCO GLOBAL EUROPE</p>
               </div>
             </div>
 
@@ -837,7 +837,7 @@ export default function App() {
               </p>
               <div>
                 <h3 className="font-display font-bold text-stone-900 text-xs">Director of Enterprise Enablement</h3>
-                <p className="text-[10px] font-mono text-stone-500 mt-0.5 font-medium">ATP GROUP</p>
+                <p className="text-[10px] font-mono text-stone-600 mt-0.5 font-medium">ATP GROUP</p>
               </div>
             </div>
           </div>
@@ -850,22 +850,22 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-5 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 block mb-2 font-medium">Connect</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 block mb-2 font-medium">Connect</span>
                 <h2 className="font-display text-3xl font-normal text-stone-900 leading-tight">
                   Initiate Case Review
                 </h2>
-                <p className="text-xs text-stone-500 mt-4 leading-relaxed font-light">
+                <p className="text-xs text-stone-600 mt-4 leading-relaxed font-light">
                   Submit a corporate brief regarding compliance boundaries or technical training requirements. Responses are provided to verified corporate emails within 24 business hours.
                 </p>
               </div>
 
               <div className="space-y-4 mt-8 md:mt-0 pt-6 border-t border-stone-100">
                 <div className="flex items-center space-x-3 text-xs">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-stone-500 flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-stone-600 flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                   <a href="mailto:gianlu@glmu.cc" className="text-stone-600 hover:text-stone-900 font-mono">gianlu@glmu.cc</a>
                 </div>
-                <div className="flex items-center space-x-3 text-xs text-stone-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-stone-500 flex-shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                <div className="flex items-center space-x-3 text-xs text-stone-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-stone-600 flex-shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                   <span>Based in Italy, serving EU networks</span>
                 </div>
                 
@@ -875,7 +875,7 @@ export default function App() {
                     href="https://linkedin.com/in/ggiallo28" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-500 hover:text-blue-600 hover:border-blue-400 transition-colors duration-300"
+                    className="p-1.5 rounded border border-stone-200 text-stone-600 hover:text-blue-600 hover:border-blue-400 transition-colors duration-300"
                     aria-label="LinkedIn"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
@@ -884,7 +884,7 @@ export default function App() {
                     href="https://github.com/ggiallo28" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-500 hover:text-stone-950 hover:border-stone-950 transition-colors duration-300"
+                    className="p-1.5 rounded border border-stone-200 text-stone-600 hover:text-stone-950 hover:border-stone-950 transition-colors duration-300"
                     aria-label="GitHub"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -893,7 +893,7 @@ export default function App() {
                     href="https://gmucciolo.it/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="p-1.5 rounded border border-stone-200 text-stone-500 hover:text-emerald-600 hover:border-emerald-400 transition-colors duration-300"
+                    className="p-1.5 rounded border border-stone-200 text-stone-600 hover:text-emerald-600 hover:border-emerald-400 transition-colors duration-300"
                     aria-label="Blog"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -912,7 +912,7 @@ export default function App() {
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
                     </span>
                     <h3 className="font-display font-semibold text-sm text-stone-950 mb-1">Inquiry Registered</h3>
-                    <p className="text-xs text-stone-500 max-w-xs mx-auto font-light leading-relaxed">
+                    <p className="text-xs text-stone-600 max-w-xs mx-auto font-light leading-relaxed">
                       Technical specification sheet has been filed. An architect will connect shortly.
                     </p>
                     <button 
@@ -933,7 +933,7 @@ export default function App() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="name" className="block text-[10px] font-mono uppercase tracking-wider text-stone-500 mb-1 font-medium">Contact Name *</label>
+                        <label htmlFor="name" className="block text-[10px] font-mono uppercase tracking-wider text-stone-600 mb-1 font-medium">Contact Name *</label>
                         <input 
                           type="text" 
                           id="name"
@@ -946,7 +946,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="company" className="block text-[10px] font-mono uppercase tracking-wider text-stone-500 mb-1 font-medium">Organization *</label>
+                        <label htmlFor="company" className="block text-[10px] font-mono uppercase tracking-wider text-stone-600 mb-1 font-medium">Organization *</label>
                         <input 
                           type="text" 
                           id="company"
@@ -962,7 +962,7 @@ export default function App() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="email" className="block text-[10px] font-mono uppercase tracking-wider text-stone-500 mb-1 font-medium">Business Email *</label>
+                        <label htmlFor="email" className="block text-[10px] font-mono uppercase tracking-wider text-stone-600 mb-1 font-medium">Business Email *</label>
                         <input 
                           type="text" 
                           id="email"
@@ -975,7 +975,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="area" className="block text-[10px] font-mono uppercase tracking-wider text-stone-500 mb-1 font-medium">Practice Area</label>
+                        <label htmlFor="area" className="block text-[10px] font-mono uppercase tracking-wider text-stone-600 mb-1 font-medium">Practice Area</label>
                         <select 
                           id="area"
                           name="area"
@@ -991,7 +991,7 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-[10px] font-mono uppercase tracking-wider text-stone-500 mb-1 font-medium">Requirements *</label>
+                      <label htmlFor="message" className="block text-[10px] font-mono uppercase tracking-wider text-stone-600 mb-1 font-medium">Requirements *</label>
                       <textarea 
                         id="message"
                         name="message"
@@ -1022,7 +1022,7 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="mt-auto py-10 border-t border-stone-200/60 bg-[#FAF9F6] text-stone-500 text-[11px]" id="glmu-footer">
+      <footer className="mt-auto py-10 border-t border-stone-200/60 bg-[#FAF9F6] text-stone-600 text-[11px]" id="glmu-footer">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-medium">
           <div className="flex items-center space-x-2">
             <span className="font-display font-bold text-stone-900 uppercase">
@@ -1052,11 +1052,11 @@ export default function App() {
             <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between bg-stone-50">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-semibold">VIES VAT Registry Status</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-semibold">VIES VAT Registry Status</span>
               </div>
               <button 
                 onClick={() => setVatModalOpen(false)}
-                className="text-stone-500 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-100 cursor-pointer"
+                className="text-stone-600 hover:text-stone-700 transition-colors p-1 rounded-full hover:bg-stone-100 cursor-pointer"
                 aria-label="Close modal"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -1069,11 +1069,11 @@ export default function App() {
                 <>
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">VAT Number</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">VAT Number</span>
                       <span className="text-sm font-mono font-semibold text-stone-900">{vatData.msCode}{vatData.vatNumber}</span>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Status</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Status</span>
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200/50">
                         {vatData.isValid ? 'Valid' : 'Invalid'}
                       </span>
@@ -1082,12 +1082,12 @@ export default function App() {
 
                   <div className="space-y-4">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block mb-0.5">Company / Entity</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">Company / Entity</span>
                       <p className="text-xs font-semibold text-stone-900">{vatData.name || 'MUCCIOLO GIANLUIGI'}</p>
                     </div>
 
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block mb-0.5">Registered Address</span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">Registered Address</span>
                       <p className="text-xs text-stone-600 whitespace-pre-line leading-relaxed font-light">
                         {vatData.address || 'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'}
                       </p>
@@ -1095,12 +1095,12 @@ export default function App() {
 
                     <div className="grid grid-cols-2 gap-4 pt-2">
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Country</span>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Country</span>
                         <p className="text-xs font-light text-stone-800">Italy (IT)</p>
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 block">Query Date</span>
-                        <p className="text-[10px] font-mono text-stone-500">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block">Query Date</span>
+                        <p className="text-[10px] font-mono text-stone-600">
                           {vatData.requestDate ? new Date(vatData.requestDate).toLocaleString() : new Date().toLocaleString()}
                         </p>
                       </div>
