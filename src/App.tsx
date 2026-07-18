@@ -621,14 +621,13 @@ export default function App() {
             >
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" 
+                  src="/google-cloud-logo.svg" 
                   alt="Google Cloud Official Logo" 
                   className={`h-[26px] sm:h-[30px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 0) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
-                  referrerPolicy="no-referrer"
                 />
               </div>
               
@@ -656,14 +655,13 @@ export default function App() {
             >
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" 
+                  src="/aws-logo.svg" 
                   alt="Amazon Web Services Official Logo" 
                   className={`h-[38px] sm:h-[44px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 1) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
-                  referrerPolicy="no-referrer"
                 />
               </div>
               
@@ -691,14 +689,13 @@ export default function App() {
             >
               <div className="flex items-center justify-start mb-4 h-12">
                 <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Cncf-logo.svg" 
+                  src="/cncf-logo.svg" 
                   alt="Cloud Native Computing Foundation Logo" 
                   className={`h-[26px] sm:h-[30px] w-auto object-contain transition-all duration-500 ${
                     (isMobile && activeBenchmarkCard === 2) 
                       ? 'grayscale-0 contrast-100 brightness-100 opacity-100 scale-105' 
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
-                  referrerPolicy="no-referrer"
                 />
               </div>
               
