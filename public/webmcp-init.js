@@ -469,6 +469,36 @@
       }
     },
     {
+      name: 'reset_corporate_inquiry',
+      description: 'Resets the corporate inquiry form after a successful submission (clicks ' +
+        '"Submit Another Inquiry"). Call this before fill_corporate_inquiry if the form is ' +
+        'stuck in the "Inquiry Registered" success state.',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var section = document.getElementById('contact');
+        if (!section) {
+          return { content: [{ type: 'text', text: 'Error: contact section not found on page.' }] };
+        }
+        var successContainer = section.querySelector('#form-success-container');
+        if (!successContainer) {
+          return { content: [{ type: 'text', text: 'Form is already in input state. Ready to fill.' }] };
+        }
+        var resetBtn = successContainer.querySelector('button');
+        if (!resetBtn) {
+          return { content: [{ type: 'text', text: 'Error: could not find the "Submit Another Inquiry" button.' }] };
+        }
+        resetBtn.click();
+        // Wait for the form inputs to render after reset
+        return waitFor(function() { return section.querySelector('#name'); }, 5000)
+          .then(function() {
+            return { content: [{ type: 'text', text: 'Form reset successfully. Ready to call fill_corporate_inquiry.' }] };
+          })
+          .catch(function() {
+            return { content: [{ type: 'text', text: 'Form reset clicked but inputs did not appear within 5s. The form may still be ready - try fill_corporate_inquiry.' }] };
+          });
+      }
+    },
+    {
       name: 'submit_corporate_inquiry',
       description: 'Submits the corporate inquiry form previously filled via fill_corporate_inquiry. Only call this ' +
         'after the visitor has explicitly confirmed the details are correct and they want to send it.',
