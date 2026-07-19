@@ -59,6 +59,7 @@ export default function App() {
 
   // Active benchmark card index (for mobile scroll triggers)
   const [activeBenchmarkCard, setActiveBenchmarkCard] = useState<number | null>(null);
+  const [expandedBenchmarkCard, setExpandedBenchmarkCard] = useState<number | null>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Active competency card index (for mobile scroll triggers)
@@ -642,9 +643,14 @@ export default function App() {
             <div 
               ref={(el) => { cardRefs.current[0] = el; }}
               data-card-index="0"
-              className="p-5 bg-white border border-stone-200/60 rounded-lg flex flex-col justify-between min-h-[250px] transition-all hover:border-stone-400/80 group"
+              onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 0 ? null : 0)}
+              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+                expandedBenchmarkCard === 0
+                  ? 'border-blue-300 shadow-sm'
+                  : 'border-stone-200/60 hover:border-stone-400/80'
+              }`}
             >
-              <div className="flex items-center justify-start mb-4 h-12">
+              <div className="flex items-center justify-between mb-4 h-12">
                 <img 
                   src="/google-cloud-logo.svg" 
                   alt="Google Cloud" 
@@ -655,6 +661,9 @@ export default function App() {
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
                 />
+                <svg className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${expandedBenchmarkCard === 0 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
@@ -670,6 +679,39 @@ export default function App() {
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">GCP (GAIL-2301)</span>
                   </div>
                 </div>
+
+                {/* Expanded Practice Areas */}
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 0 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                  <div className="pt-4 border-t border-blue-100">
+                    <span className="text-[9px] font-mono text-blue-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
+                    <ul className="space-y-2">
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Cloud Architecture &amp; Foundations:</strong> Multi-region infrastructure, Cloud Run, GKE, private VPCs, KMS</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Data Platforms:</strong> BigQuery data warehouses, ETL pipelines, real-time analytics with Looker</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">AI &amp; Generative AI:</strong> Vertex AI model orchestration, Gemini solutions, safety guardrails</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> Terraform, CI/CD pipelines, OPA policy enforcement</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Security &amp; Governance:</strong> IAM, VPC Service Controls, Cloud Armor, org policy management</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-blue-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Migration &amp; Cost Optimization:</strong> Workload assessment, replatform migrations, FinOps</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -677,9 +719,14 @@ export default function App() {
             <div 
               ref={(el) => { cardRefs.current[1] = el; }}
               data-card-index="1"
-              className="p-5 bg-white border border-stone-200/60 rounded-lg flex flex-col justify-between min-h-[250px] transition-all hover:border-stone-400/80 group"
+              onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 1 ? null : 1)}
+              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+                expandedBenchmarkCard === 1
+                  ? 'border-amber-300 shadow-sm'
+                  : 'border-stone-200/60 hover:border-stone-400/80'
+              }`}
             >
-              <div className="flex items-center justify-start mb-4 h-12">
+              <div className="flex items-center justify-between mb-4 h-12">
                 <img 
                   src="/aws-logo.svg" 
                   alt="Amazon Web Services" 
@@ -690,6 +737,9 @@ export default function App() {
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
                 />
+                <svg className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${expandedBenchmarkCard === 1 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
@@ -705,6 +755,39 @@ export default function App() {
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">AWS (SAP-C02)</span>
                   </div>
                 </div>
+
+                {/* Expanded Practice Areas */}
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 1 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                  <div className="pt-4 border-t border-amber-100">
+                    <span className="text-[9px] font-mono text-amber-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
+                    <ul className="space-y-2">
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Cloud Infrastructure:</strong> EC2, ECS/EKS containers, VPC design, KMS encryption</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Data Platforms:</strong> Redshift data warehouses, EMR, streaming with Kinesis</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">AI &amp; Machine Learning:</strong> SageMaker model training and deployment pipelines</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> CloudFormation, Terraform, CI/CD with CodePipeline</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Security &amp; Governance:</strong> IAM policies, KMS, Shield, WAF, Organizations</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Migration &amp; Cost Optimization:</strong> AWS MAP assessments, reserved instances, FinOps</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -712,9 +795,14 @@ export default function App() {
             <div 
               ref={(el) => { cardRefs.current[2] = el; }}
               data-card-index="2"
-              className="p-5 bg-white border border-stone-200/60 rounded-lg flex flex-col justify-between min-h-[250px] transition-all hover:border-stone-400/80 group"
+              onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 2 ? null : 2)}
+              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+                expandedBenchmarkCard === 2
+                  ? 'border-indigo-300 shadow-sm'
+                  : 'border-stone-200/60 hover:border-stone-400/80'
+              }`}
             >
-              <div className="flex items-center justify-start mb-4 h-12">
+              <div className="flex items-center justify-between mb-4 h-12">
                 <img 
                   src="/cncf-logo.svg" 
                   alt="Cloud Native Computing Foundation" 
@@ -725,6 +813,9 @@ export default function App() {
                       : 'grayscale contrast-75 brightness-95 opacity-70 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:opacity-100 group-hover:scale-105'
                   }`}
                 />
+                <svg className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${expandedBenchmarkCard === 2 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
               
               <div className="space-y-4 flex-1 flex flex-col justify-between">
@@ -738,6 +829,39 @@ export default function App() {
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Certified Kubernetes App Developer</h3>
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">CNCF (CKAD)</span>
+                  </div>
+                </div>
+
+                {/* Expanded Practice Areas */}
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 2 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                  <div className="pt-4 border-t border-indigo-100">
+                    <span className="text-[9px] font-mono text-indigo-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
+                    <ul className="space-y-2">
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Kubernetes Platforms:</strong> GKE, EKS, cluster design, multi-tenancy, RBAC</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Service Mesh &amp; Networking:</strong> Istio, mTLS, ingress controllers, network policies</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Infrastructure as Code:</strong> Helm charts, Kustomize, Crossplane, KRM</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Policy &amp; Security:</strong> OPA/Gatekeeper, Kyverno, pod security standards</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">Observability:</strong> Prometheus, OpenTelemetry, Grafana, structured logging</span>
+                      </li>
+                      <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
+                        <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
+                        <span><strong className="font-medium text-stone-900">GitOps &amp; Delivery:</strong> ArgoCD, Flux, progressive delivery, canary deployments</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
