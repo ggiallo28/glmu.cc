@@ -15,6 +15,7 @@
     "vite": "^6.2.3"
   },
   "dependencies": {
+    "@jason.today/webmcp": "^0.1.13",
     "@preact/preset-vite": "^2.10.5",
     "preact": "^10.29.7"
   }

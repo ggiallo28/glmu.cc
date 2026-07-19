@@ -20,7 +20,8 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
     deliverables: [
       "Private VPC subnet networks, security groups, and IAM roles.",
       "Modular Terraform templates structured for separate staging environments.",
-      "Automated infrastructure drift checks and policy verification rules."
+      "Automated infrastructure drift checks and policy verification rules.",
+      "Cross-provider governance frameworks for GCP, AWS, and K8s workloads."
     ],
     verification: "Verified pattern across engagements: migrations are designed with dual-write testing and rapid rollback capability from day one. Monitoring runs at four layers (component, pipeline, system, business) with cost-threshold alerts built in from the start."
   },
@@ -32,7 +33,8 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
     deliverables: [
       "Dedicated context database clusters and secure API proxy gateways.",
       "State-machine flow orchestrators preventing infinite execution run loops.",
-      "Custom cost-containment dashboards with automatic budget threshold limits."
+      "Custom cost-containment dashboards with automatic budget threshold limits.",
+      "Cross-provider AI agent assessments for GCP, AWS, and K8s inference pipelines."
     ],
     verification: "Verified pattern: cost visibility is a discipline, not a slogan — every engagement runs on transparent, hourly-tracked billing agreed before work starts. The same discipline is designed into agent platforms from day one: budget thresholds and circuit-breakers specified upfront, before the first token is spent."
   },
@@ -44,7 +46,8 @@ const scopeDetails: Record<'infrastructure' | 'ai' | 'training', ScopeDetail> = 
     deliverables: [
       "Official certification exam study resources and practice review tracks.",
       "Practical sandbox incident response blueprints and live scenario guides.",
-      "Comprehensive platform reviews and custom architecture reference guidebooks."
+      "Comprehensive platform reviews and custom architecture reference guidebooks.",
+      "Multi-cloud certification bootcamps for GCP, AWS, and K8s administration."
     ],
     verification: "Verified pattern: on one data-engineering engagement, 27% of total billed hours went to team training, knowledge transfer, and documentation, delivered alongside the technical build. Backed by an AWS Champion Instructor credential (Credly-verified since 2018) and 6 published Manning Publications liveProjects reaching engineers directly."
   }
@@ -59,7 +62,7 @@ export default function App() {
 
   // Active benchmark card index (for mobile scroll triggers)
   const [activeBenchmarkCard, setActiveBenchmarkCard] = useState<number | null>(null);
-  const [expandedBenchmarkCard, setExpandedBenchmarkCard] = useState<number | null>(null);
+  const [expandedBenchmarkCard, setExpandedBenchmarkCard] = useState<number | null>(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Active competency card index (for mobile scroll triggers)
@@ -395,7 +398,7 @@ export default function App() {
               <div className="p-4 bg-stone-100/60 border border-stone-200/50 rounded">
                 <span className="text-[9px] font-mono uppercase tracking-wider text-stone-600 block mb-1.5 font-medium">Ideal Partners</span>
                 <p className="text-xs text-stone-600 leading-relaxed font-light">
-                  Partnering best with fast-growing <strong className="font-medium text-stone-900">Series B through D</strong> technology organizations (typically 50 to 500 people) whose early architectural decisions across <strong className="font-medium text-stone-900">Google Cloud, AWS, and Kubernetes</strong> are beginning to manifest as operational drag.
+                  Partnering best with fast-growing <strong className="font-medium text-stone-900">Series B through D</strong> technology organizations (typically 50 to 500 people) whose early architectural decisions across <strong className="font-medium text-stone-900">Google Cloud, Amazon Web Services, and Kubernetes</strong> are beginning to manifest as operational drag.
                 </p>
               </div>
             </div>
@@ -644,7 +647,7 @@ export default function App() {
               ref={(el) => { cardRefs.current[0] = el; }}
               data-card-index="0"
               onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 0 ? null : 0)}
-              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+              className={`p-5 bg-white border rounded-lg transition-all duration-300 cursor-pointer group ${
                 expandedBenchmarkCard === 0
                   ? 'border-blue-300 shadow-sm'
                   : 'border-stone-200/60 hover:border-stone-400/80'
@@ -666,10 +669,10 @@ export default function App() {
                 </svg>
               </div>
               
-              <div className="space-y-4 flex-1 flex flex-col justify-between">
+              <div>
                 <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Google Cloud</span>
                 
-                <div className="space-y-3 flex-grow mt-3">
+                <div className="space-y-3 mt-4">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Professional Cloud Architect</h3>
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">GCP (PCA-9831)</span>
@@ -680,34 +683,37 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Expanded Practice Areas */}
-                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 0 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                {expandedBenchmarkCard !== 0 && (
+                  <p className="text-[10px] font-mono text-stone-300 group-hover:text-stone-500 transition-colors mt-3 leading-none select-none">Show practice areas</p>
+                )}
+
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 0 ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}>
                   <div className="pt-4 border-t border-blue-100">
                     <span className="text-[9px] font-mono text-blue-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
                     <ul className="space-y-2">
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Cloud Architecture &amp; Foundations:</strong> Multi-region infrastructure, Cloud Run, GKE, private VPCs, KMS</span>
+                        <span><strong className="font-medium text-stone-900">Cloud Infrastructure:</strong> Cloud Run, GKE, VPC design, KMS encryption</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Data Platforms:</strong> BigQuery data warehouses, ETL pipelines, real-time analytics with Looker</span>
+                        <span><strong className="font-medium text-stone-900">Data Platforms:</strong> BigQuery, Dataflow, streaming with Pub/Sub</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">AI &amp; Generative AI:</strong> Vertex AI model orchestration, Gemini solutions, safety guardrails</span>
+                        <span><strong className="font-medium text-stone-900">AI &amp; Machine Learning:</strong> Vertex AI, Gemini, safety guardrails</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> Terraform, CI/CD pipelines, OPA policy enforcement</span>
+                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> Terraform, Cloud Build, CI/CD, OPA policies</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Security &amp; Governance:</strong> IAM, VPC Service Controls, Cloud Armor, org policy management</span>
+                        <span><strong className="font-medium text-stone-900">Security &amp; Governance:</strong> IAM, VPC Service Controls, Cloud Armor, org policies</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-blue-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Migration &amp; Cost Optimization:</strong> Workload assessment, replatform migrations, FinOps</span>
+                        <span><strong className="font-medium text-stone-900">Migration &amp; Cost Optimization:</strong> Workload assessment, replatforming, FinOps</span>
                       </li>
                     </ul>
                   </div>
@@ -720,7 +726,7 @@ export default function App() {
               ref={(el) => { cardRefs.current[1] = el; }}
               data-card-index="1"
               onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 1 ? null : 1)}
-              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+              className={`p-5 bg-white border rounded-lg transition-all duration-300 cursor-pointer group ${
                 expandedBenchmarkCard === 1
                   ? 'border-amber-300 shadow-sm'
                   : 'border-stone-200/60 hover:border-stone-400/80'
@@ -742,10 +748,10 @@ export default function App() {
                 </svg>
               </div>
               
-              <div className="space-y-4 flex-1 flex flex-col justify-between">
+              <div>
                 <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Amazon Web Services</span>
                 
-                <div className="space-y-3 flex-grow mt-3">
+                <div className="space-y-3 mt-4">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Authorized Instructor</h3>
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">AWS (AAI-CHAMP-8822)</span>
@@ -756,8 +762,11 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Expanded Practice Areas */}
-                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 1 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                {expandedBenchmarkCard !== 1 && (
+                  <p className="text-[10px] font-mono text-stone-300 group-hover:text-stone-500 transition-colors mt-3 leading-none select-none">Show practice areas</p>
+                )}
+
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 1 ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}>
                   <div className="pt-4 border-t border-amber-100">
                     <span className="text-[9px] font-mono text-amber-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
                     <ul className="space-y-2">
@@ -775,7 +784,7 @@ export default function App() {
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-amber-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> CloudFormation, Terraform, CI/CD with CodePipeline</span>
+                        <span><strong className="font-medium text-stone-900">Infrastructure Automation:</strong> CloudFormation, Terraform, CI/CD</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-amber-400 mt-0.5 shrink-0">—</span>
@@ -796,7 +805,7 @@ export default function App() {
               ref={(el) => { cardRefs.current[2] = el; }}
               data-card-index="2"
               onClick={() => setExpandedBenchmarkCard(expandedBenchmarkCard === 2 ? null : 2)}
-              className={`p-5 bg-white border rounded-lg flex flex-col min-h-[250px] transition-all duration-300 cursor-pointer group ${
+              className={`p-5 bg-white border rounded-lg transition-all duration-300 cursor-pointer group ${
                 expandedBenchmarkCard === 2
                   ? 'border-indigo-300 shadow-sm'
                   : 'border-stone-200/60 hover:border-stone-400/80'
@@ -818,10 +827,10 @@ export default function App() {
                 </svg>
               </div>
               
-              <div className="space-y-4 flex-1 flex flex-col justify-between">
+              <div>
                 <span className="text-[9px] font-mono text-stone-600 uppercase tracking-widest block border-b border-stone-100 pb-2 font-medium">Cloud Native Computing</span>
                 
-                <div className="space-y-3 flex-grow mt-3">
+                <div className="space-y-3 mt-4">
                   <div>
                     <h3 className="text-xs font-semibold text-stone-900 leading-snug">Certified Kubernetes Administrator</h3>
                     <span className="text-[9px] font-mono text-stone-600 block mt-0.5">CNCF (CKA)</span>
@@ -832,8 +841,11 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Expanded Practice Areas */}
-                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 2 ? 'max-h-80 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                {expandedBenchmarkCard !== 2 && (
+                  <p className="text-[10px] font-mono text-stone-300 group-hover:text-stone-500 transition-colors mt-3 leading-none select-none">Show practice areas</p>
+                )}
+
+                <div className={`overflow-hidden transition-all duration-300 ${expandedBenchmarkCard === 2 ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}>
                   <div className="pt-4 border-t border-indigo-100">
                     <span className="text-[9px] font-mono text-indigo-600 uppercase tracking-widest block mb-3 font-medium">Practice Areas</span>
                     <ul className="space-y-2">
@@ -855,7 +867,7 @@ export default function App() {
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
-                        <span><strong className="font-medium text-stone-900">Observability:</strong> Prometheus, OpenTelemetry, Grafana, structured logging</span>
+                        <span><strong className="font-medium text-stone-900">Observability:</strong> Prometheus, OpenTelemetry, structured logging</span>
                       </li>
                       <li className="flex gap-2 text-[10px] text-stone-600 font-light leading-relaxed">
                         <span className="text-indigo-400 mt-0.5 shrink-0">—</span>
