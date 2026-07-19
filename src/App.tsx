@@ -394,7 +394,7 @@ export default function App() {
               <div className="p-4 bg-stone-100/60 border border-stone-200/50 rounded">
                 <span className="text-[9px] font-mono uppercase tracking-wider text-stone-600 block mb-1.5 font-medium">Ideal Partners</span>
                 <p className="text-xs text-stone-600 leading-relaxed font-light">
-                  Partnering best with fast-growing <strong className="font-medium text-stone-900">Series B through D</strong> technology organizations (typically 50 to 500 people) whose early architectural decisions are beginning to manifest as operational drag.
+                  Partnering best with fast-growing <strong className="font-medium text-stone-900">Series B through D</strong> technology organizations (typically 50 to 500 people) whose early architectural decisions across <strong className="font-medium text-stone-900">Google Cloud, AWS, and Kubernetes</strong> are beginning to manifest as operational drag.
                 </p>
               </div>
             </div>
