@@ -569,7 +569,7 @@ export default function App() {
                 Deploying production-grade model orchestration pipelines on Gemini and SageMaker, with robust context memory databases, strict execution safety filters, and structured MLOps.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
-                {['Gemini', 'SageMaker', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'].map(tech => (
+                {['Gemini', 'SageMaker', 'LLMs / GenAI', 'Vector DBs', 'MLOps'].map(tech => (
                   <span 
                     key={tech} 
                     className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
