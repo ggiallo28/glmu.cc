@@ -27,6 +27,57 @@
     }
   }
 
+  // Shared helpers for fill_corporate_inquiry / submit_corporate_inquiry: polling,
+  // delaying, and simulating visible field-by-field typing on a real form input.
+  function waitFor(getEl, timeoutMs) {
+    return new Promise(function(resolve, reject) {
+      var start = Date.now();
+      (function poll() {
+        var el = getEl();
+        if (el) { resolve(el); return; }
+        if (Date.now() - start > timeoutMs) { reject(new Error('Timed out waiting for the contact form to load.')); return; }
+        setTimeout(poll, 150);
+      })();
+    });
+  }
+
+  function delay(ms) { return new Promise(function(resolve) { setTimeout(resolve, ms); }); }
+
+  // Fires both "input" and "change": with preact/compat loaded (it is, for the
+  // lazy VatModal), JSX onChange is normalized to a native *input* listener, while
+  // plain Preact would bind native *change*. Dispatching both covers either mode -
+  // without this, component state never updates and any re-render (e.g. from the
+  // scroll-position highlighting) wipes the fields that were already typed.
+  function commitFieldValue(el) {
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function typeIntoField(el, text) {
+    return new Promise(function(resolve) {
+      el.value = '';
+      var i = 0;
+      (function step() {
+        i++;
+        el.value = text.slice(0, i);
+        // Commit every keystroke so component state tracks the typed prefix -
+        // an unrelated re-render mid-typing then has nothing stale to restore.
+        commitFieldValue(el);
+        if (i < text.length) {
+          setTimeout(step, 18 + Math.random() * 22);
+        } else {
+          resolve();
+        }
+      })();
+    });
+  }
+
+  function selectFieldValue(el, value) {
+    el.value = value;
+    commitFieldValue(el);
+    return delay(200);
+  }
+
   // Resolves target text into a live-updating element over a short animation,
   // scrambling unrevealed characters before they settle - a "text diffusion" reveal.
   function diffuseText(targetId, finalText) {
@@ -358,8 +409,10 @@
       }
     },
     {
-      name: 'send_corporate_inquiry',
-      description: 'Submit a corporate inquiry to GLMU Consulting (contact name, organization, business email, practice area, and requirements)',
+      name: 'fill_corporate_inquiry',
+      description: 'Fills the real corporate inquiry form on the page, visibly, field by field - but does NOT submit it. ' +
+        'Always tell the visitor what you filled in and get their explicit confirmation before calling ' +
+        'submit_corporate_inquiry. Never submit on your own initiative.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -371,11 +424,11 @@
         },
         required: ['name', 'company', 'email', 'message']
       },
-      // Rather than submitting via a hidden background fetch, this drives the real
-      // on-page form: scrolls to it, types each field visibly, then clicks the real
-      // submit button so React's own handleFormSubmit performs the actual delivery.
-      // Preact (not preact/compat) binds JSX onChange to the native "change" event,
-      // not "input" - so state only syncs once a change event fires per field.
+      // Fills the real on-page form, visibly, field by field. Submission is a
+      // separate tool (submit_corporate_inquiry) so a human confirmation step can
+      // sit between filling and sending. Preact (not preact/compat) binds JSX
+      // onChange to the native "change" event, not "input" - so state only syncs
+      // once a change event fires per field.
       execute: function(args) {
         var name = (args.name || '').trim();
         var company = (args.company || '').trim();
@@ -397,87 +450,63 @@
         }
         section.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        function waitFor(getEl, timeoutMs) {
-          return new Promise(function(resolve, reject) {
-            var start = Date.now();
-            (function poll() {
-              var el = getEl();
-              if (el) { resolve(el); return; }
-              if (Date.now() - start > timeoutMs) { reject(new Error('Timed out waiting for the contact form to load.')); return; }
-              setTimeout(poll, 150);
-            })();
-          });
-        }
-
-        function delay(ms) { return new Promise(function(resolve) { setTimeout(resolve, ms); }); }
-
-        function typeInto(el, text) {
-          return new Promise(function(resolve) {
-            el.focus();
-            el.value = '';
-            var i = 0;
-            (function step() {
-              i++;
-              el.value = text.slice(0, i);
-              if (i < text.length) {
-                setTimeout(step, 18 + Math.random() * 22);
-              } else {
-                el.dispatchEvent(new Event('change', { bubbles: true }));
-                resolve();
-              }
-            })();
-          });
-        }
-
-        function selectValue(el, value) {
-          el.focus();
-          el.value = value;
-          el.dispatchEvent(new Event('change', { bubbles: true }));
-          return delay(200);
-        }
-
         return waitFor(function() { return section.querySelector('#name'); }, 8000)
           .then(function() {
-            return typeInto(section.querySelector('#name'), name);
+            return typeIntoField(section.querySelector('#name'), name);
           })
           .then(function() { return delay(150); })
-          .then(function() { return typeInto(section.querySelector('#company'), company); })
+          .then(function() { return typeIntoField(section.querySelector('#company'), company); })
           .then(function() { return delay(150); })
-          .then(function() { return typeInto(section.querySelector('#email'), email); })
-          .then(function() { return selectValue(section.querySelector('#area'), area); })
-          .then(function() { return typeInto(section.querySelector('#message'), message); })
-          .then(function() { return delay(300); })
+          .then(function() { return typeIntoField(section.querySelector('#email'), email); })
+          .then(function() { return selectFieldValue(section.querySelector('#area'), area); })
+          .then(function() { return typeIntoField(section.querySelector('#message'), message); })
           .then(function() {
-            return new Promise(function(resolve) {
-              var settled = false;
-              var observer = new MutationObserver(function() {
-                var success = section.querySelector('#form-success-container');
-                var error = section.querySelector('#form-error-container');
-                if (success && !settled) {
-                  settled = true;
-                  observer.disconnect();
-                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted successfully. Inquiry registered - an architect will connect shortly.' }] });
-                } else if (error && !settled) {
-                  settled = true;
-                  observer.disconnect();
-                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted, but the site reported an error: ' + error.textContent }] });
-                }
-              });
-              observer.observe(section, { childList: true, subtree: true });
-              var submitBtn = section.querySelector('button[type="submit"]');
-              if (submitBtn) submitBtn.click();
-              setTimeout(function() {
-                if (!settled) {
-                  settled = true;
-                  observer.disconnect();
-                  resolve({ content: [{ type: 'text', text: 'Form filled and submitted; could not confirm the result within the timeout - please check the page.' }] });
-                }
-              }, 10000);
-            });
+            return { content: [{ type: 'text', text: 'Form filled with the details above (not yet submitted). Confirm with the visitor that everything is correct, then call submit_corporate_inquiry to actually send it.' }] };
           })
           .catch(function(err) {
-            return { content: [{ type: 'text', text: 'Error: ' + (err && err.message ? err.message : 'failed to fill or submit the form.') }] };
+            return { content: [{ type: 'text', text: 'Error: ' + (err && err.message ? err.message : 'failed to fill the form.') }] };
           });
+      }
+    },
+    {
+      name: 'submit_corporate_inquiry',
+      description: 'Submits the corporate inquiry form previously filled via fill_corporate_inquiry. Only call this ' +
+        'after the visitor has explicitly confirmed the details are correct and they want to send it.',
+      inputSchema: { type: 'object', properties: {} },
+      execute: function() {
+        var section = document.getElementById('contact');
+        if (!section) {
+          return { content: [{ type: 'text', text: 'Error: contact section not found on page.' }] };
+        }
+        var submitBtn = section.querySelector('button[type="submit"]');
+        if (!submitBtn) {
+          return { content: [{ type: 'text', text: 'Error: submit button not found - fill_corporate_inquiry must run first.' }] };
+        }
+        return new Promise(function(resolve) {
+          var settled = false;
+          var observer = new MutationObserver(function() {
+            var success = section.querySelector('#form-success-container');
+            var error = section.querySelector('#form-error-container');
+            if (success && !settled) {
+              settled = true;
+              observer.disconnect();
+              resolve({ content: [{ type: 'text', text: 'Submitted successfully. Inquiry registered - an architect will connect shortly.' }] });
+            } else if (error && !settled) {
+              settled = true;
+              observer.disconnect();
+              resolve({ content: [{ type: 'text', text: 'Submitted, but the site reported an error: ' + error.textContent }] });
+            }
+          });
+          observer.observe(section, { childList: true, subtree: true });
+          submitBtn.click();
+          setTimeout(function() {
+            if (!settled) {
+              settled = true;
+              observer.disconnect();
+              resolve({ content: [{ type: 'text', text: 'Submitted; could not confirm the result within the timeout - please check the page.' }] });
+            }
+          }, 10000);
+        });
       }
     }
   ];
@@ -633,6 +662,33 @@
     widget.style.left = '';
     widget.style.bottom = '';
     widget.style.zIndex = '50';
+
+    // The library's default panel placement (absolute, bottom:40px off the widget)
+    // can push the 250px panel past the viewport edge on narrow screens. Position
+    // it fixed instead, clamped inside the viewport, preferring above the anchor.
+    var panelEl = widget.querySelector('.webmcp-content');
+    var positionPanel = function() {
+      if (!panelEl || panelEl.style.display === 'none') return;
+      var rect = anchorEl.getBoundingClientRect();
+      panelEl.style.position = 'fixed';
+      panelEl.style.zIndex = '9999';
+      panelEl.style.bottom = 'auto';
+      var w = panelEl.offsetWidth || 250;
+      var h = panelEl.offsetHeight || 260;
+      var left = Math.min(Math.max(8, rect.right - w), window.innerWidth - w - 8);
+      var top = rect.top - h - 8;
+      if (top < 8) top = Math.min(rect.bottom + 8, window.innerHeight - h - 8);
+      panelEl.style.left = left + 'px';
+      panelEl.style.top = Math.max(8, top) + 'px';
+    };
+    // Reposition after the library toggles the panel (our listener runs after
+    // theirs since it was registered later), and keep it anchored while open.
+    var triggerEl = widget.querySelector('.webmcp-trigger');
+    if (triggerEl) {
+      triggerEl.addEventListener('click', function() { requestAnimationFrame(positionPanel); });
+    }
+    window.addEventListener('resize', positionPanel);
+    window.addEventListener('scroll', positionPanel, { passive: true });
   }
 
   // Add connection instructions inside the modal
@@ -642,7 +698,7 @@
     if (header) {
       var instructionsBox = document.createElement('div');
       instructionsBox.style.cssText = 'margin-bottom:10px;padding:8px;background:#f5f5f4;border-radius:4px;font-size:11px;line-height:1.5;color:#44403c;font-family:monospace;border:1px solid #e7e5e4;';
-      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_overview for the firm\'s positioning tagline, get_firm_profile for ideal-client profile and operating philosophy, get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, get_testimonials for client references, reflect_experience(topic, message) where you first read the evidence://pillars resource, then write a tailored message grounded in it, adapted to whatever we\'re discussing, and send_corporate_inquiry to submit a name/company/email/practice area/message. Also mention I can ask you to read the full site content (page://current), a specific page section (section://{elementId}), or the grounded engagement evidence (evidence://pillars).';
+      var promptText = 'I want to connect to glmu.cc via the @jason.today/webmcp package. First, check if it\'s already registered as an MCP server for my client; if not, register it (check --help to see the right flag for my client). Then generate a connection token (use the generate-token/get-token tool if it\'s already available, otherwise run npx @jason.today/webmcp --new in the terminal) and give me the raw token to paste into the widget on the page. Then wait - don\'t explain anything yet. Once I tell you I\'ve pasted the token and connected (and, if needed, restarted the MCP client so the tools appear), confirm the site registered correctly, then briefly explain how these tools work and what I can ask you: get_overview for the firm\'s positioning tagline, get_firm_profile for ideal-client profile and operating philosophy, get_scope_details for a specific engagement scope (infrastructure, ai, or training), get_credentials for certifications, get_contact for email/social links, get_competencies for the tech stack, get_testimonials for client references, reflect_experience(topic, message) where you first read the evidence://pillars resource, then write a tailored message grounded in it, adapted to whatever we\'re discussing, and fill_corporate_inquiry to fill in a name/company/email/practice area/message on the real form (visibly, without submitting) - always confirm the details with me before calling submit_corporate_inquiry to actually send it. Also mention I can ask you to read the full site content (page://current), a specific page section (section://{elementId}), or the grounded engagement evidence (evidence://pillars).';
       instructionsBox.innerHTML = '<strong style="font-size:10px;display:block;margin-bottom:4px;color:#292524;">CONNECT VIA MCP</strong>' +
         '<div style="margin:4px 0;display:flex;gap:6px;">' +
           '<button class="webmcp-copy-btn" style="flex:1;padding:6px 8px;font-size:10px;font-family:monospace;border:1px solid #d6d3d1;border-radius:4px;background:#fafaf9;color:#44403c;cursor:pointer;text-align:center;">Copy prompt for LLM</button>' +
