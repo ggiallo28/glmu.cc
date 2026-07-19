@@ -241,6 +241,12 @@ export default function App() {
     });
   };
 
+  const brandTagColors: Record<string, { text: string; bg: string; border: string }> = {
+    'Google Cloud': { text: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' },
+    'AWS': { text: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
+    'Kubernetes': { text: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
+  };
+
   const toggleMobileDomain = (domain: 'infrastructure' | 'ai' | 'training') => {
     if (expandedMobileDomains.includes(domain)) {
       setExpandedMobileDomains(expandedMobileDomains.filter(d => d !== domain));
@@ -420,7 +426,7 @@ export default function App() {
               Core Technical Competencies
             </h2>
             <p className="text-xs text-stone-600 font-light mt-2 max-w-xl leading-relaxed">
-              Delivering high-integrity systems engineering and detailed decision models. Core technical capabilities span the entire cloud, data, and intelligent systems stack neutrally.
+              Delivering high-integrity systems engineering across Google Cloud, AWS, and Kubernetes environments. Core capabilities span the entire cloud, data, and intelligent systems stack.
             </p>
           </div>
 
@@ -444,21 +450,26 @@ export default function App() {
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 0) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
-                Designing multi-cloud foundations, multi-region Kubernetes, serverless architectures, declarative templates, and isolated network boundaries.
+                Designing Google Cloud, AWS, and Kubernetes foundations — multi-region, serverless, declarative infrastructure, and isolated network boundaries.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
-                {['Multi-Cloud', 'Kubernetes', 'Helm', 'Terraform', 'VPC Isolation'].map(tech => (
-                  <span 
-                    key={tech} 
-                    className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
-                      (isMobile && activeCompetencyCard === 0)
-                        ? 'text-sky-700 bg-sky-50 border-sky-200'
-                        : 'text-stone-600 border-stone-200/60 group-hover:text-sky-700 group-hover:bg-sky-50 group-hover:border-sky-200'
-                    }`}
-                  >
-                    {tech}
-                  </span>
-                ))}
+                {['Google Cloud', 'AWS', 'Kubernetes', 'Terraform', 'VPC Isolation'].map(tech => {
+                  const brand = brandTagColors[tech];
+                  return (
+                    <span 
+                      key={tech} 
+                      className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
+                        brand
+                          ? `${brand.text} ${brand.bg} ${brand.border}`
+                          : (isMobile && activeCompetencyCard === 0)
+                            ? 'text-sky-700 bg-sky-50 border-sky-200'
+                            : 'text-stone-600 border-stone-200/60 group-hover:text-sky-700 group-hover:bg-sky-50 group-hover:border-sky-200'
+                      }`}
+                    >
+                      {tech}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 
@@ -518,10 +529,10 @@ export default function App() {
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 2) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
-                Architecting parallelized ETL data ingestion pipelines, high-volume distributed stream processors, and high-performance cloud-native data warehouses.
+                Architecting parallelized ETL data ingestion pipelines across BigQuery, Redshift, and open-source engines, with high-volume stream processors and cloud-native data warehouses.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
-                {['Apache Spark', 'Apache Kafka', 'Apache Flink', 'Data Lakes', 'DWH'].map(tech => (
+                {['Apache Spark', 'Apache Kafka', 'BigQuery', 'Redshift', 'Data Lakes', 'DWH'].map(tech => (
                   <span 
                     key={tech} 
                     className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
@@ -555,10 +566,10 @@ export default function App() {
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 3) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
-                Deploying production-grade model orchestration pipelines, robust context memory databases, strict execution safety filters, and structured MLOps.
+                Deploying production-grade model orchestration pipelines on Vertex AI and SageMaker, with robust context memory databases, strict execution safety filters, and structured MLOps.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
-                {['Python', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'].map(tech => (
+                {['Vertex AI', 'SageMaker', 'LLMs / GenAI', 'Vector DBs', 'MLflow', 'MLOps'].map(tech => (
                   <span 
                     key={tech} 
                     className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
