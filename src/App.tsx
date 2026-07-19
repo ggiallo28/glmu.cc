@@ -532,7 +532,7 @@ export default function App() {
                 Architecting parallelized ETL data ingestion pipelines across BigQuery, Redshift, and open-source engines, with high-volume stream processors and cloud-native data warehouses.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
-                {['Apache Spark', 'Apache Kafka', 'BigQuery', 'Redshift', 'Data Lakes', 'DWH'].map(tech => (
+                {['Apache Spark · Kafka', 'BigQuery', 'Redshift', 'Data Lakes', 'DWH'].map(tech => (
                   <span 
                     key={tech} 
                     className={`px-1.5 py-0.5 bg-white font-mono text-[9px] border rounded font-medium transition-all duration-300 ${
