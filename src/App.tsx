@@ -366,7 +366,7 @@ export default function App() {
           </h1>
 
           <p className="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-            Reasoning through the complex architectural decisions across Google Cloud, AWS, and Kubernetes that define the next two to three years. Delivering rigorous decision models with explicit tradeoffs so technology organizations can navigate their own unique context.
+            Reasoning through the complex architectural decisions that define the next two to three years. Delivering rigorous decision models with explicit tradeoffs so technology organizations can navigate their own unique context.
           </p>
 
           <div className="flex justify-center">
