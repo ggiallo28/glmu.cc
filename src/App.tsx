@@ -450,7 +450,7 @@ export default function App() {
               <p className={`text-xs font-light leading-relaxed mb-4 transition-colors duration-300 ${
                 (isMobile && activeCompetencyCard === 0) ? 'text-stone-700' : 'text-stone-600 group-hover:text-stone-700'
               }`}>
-                Designing Google Cloud, AWS, and Kubernetes foundations — multi-region, serverless, declarative infrastructure, and isolated network boundaries.
+                Designing Google Cloud, AWS, and Kubernetes foundations. Multi-region, serverless, declarative infrastructure, and isolated network boundaries.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-2 border-t border-stone-100">
                 {['Google Cloud', 'AWS', 'Kubernetes', 'Terraform', 'VPC Isolation'].map(tech => {
