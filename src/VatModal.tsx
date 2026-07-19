@@ -74,7 +74,6 @@ export default function VatModal({
                     VAT Number
                   </span>
                   <span className="text-sm font-mono font-semibold text-stone-900">
-                    {data.msCode}
                     {data.vatNumber}
                   </span>
                 </div>
@@ -89,13 +88,23 @@ export default function VatModal({
               </div>
 
               <div className="space-y-4">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">
-                    Company / Entity
-                  </span>
-                  <p className="text-xs font-semibold text-stone-900">
-                    {data.name || 'MUCCIOLO GIANLUIGI'}
-                  </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">
+                      Company / Entity
+                    </span>
+                    <p className="text-xs font-semibold text-stone-900">
+                      {data.name || 'MUCCIOLO GIANLUIGI'}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">
+                      Trading Name
+                    </span>
+                    <p className="text-xs font-semibold text-stone-900">
+                      GLMU
+                    </p>
+                  </div>
                 </div>
 
                 <div>
@@ -105,6 +114,15 @@ export default function VatModal({
                   <p className="text-xs text-stone-600 whitespace-pre-line leading-relaxed font-light">
                     {data.address ||
                       'CONTRADA FONTANA SALERNO 6\n84049 CASTEL SAN LORENZO SA\nItaly'}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 block mb-0.5">
+                    Authorised Representative
+                  </span>
+                  <p className="text-xs font-semibold text-stone-900">
+                    Gianluigi Mucciolo
                   </p>
                 </div>
 

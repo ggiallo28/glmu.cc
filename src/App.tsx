@@ -133,8 +133,9 @@ export default function App() {
       setActiveBenchmarkCard(closestBenchmarkIdx);
     };
 
-    // Run initially to set active state
-    handleScroll();
+    // Run initially to set active state — deferred past the first paint so the
+    // geometry reads don't force a synchronous layout right after render.
+    const initialFrame = requestAnimationFrame(() => requestAnimationFrame(handleScroll));
 
     const handleResizeAndMobile = () => {
       checkMobile();
@@ -145,6 +146,7 @@ export default function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
+      cancelAnimationFrame(initialFrame);
       window.removeEventListener('resize', handleResizeAndMobile);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -217,9 +219,15 @@ export default function App() {
   // Lazy-loaded VAT Modal (code-split: only fetched on click)
   const VatModal = lazy(() => import('./VatModal'));
 
+  // Lazy-loaded Privacy Modal (code-split: only fetched on click)
+  const PrivacyModal = lazy(() => import('./PrivacyModal'));
+
   // VAT Modal State
   const [vatModalOpen, setVatModalOpen] = useState(false);
   const [vatData, setVatData] = useState<VatData | null>(null);
+
+  // Privacy Modal State
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   const fetchVatData = () => {
     setVatModalOpen(true);
@@ -953,8 +961,8 @@ export default function App() {
             </span>
             <span>© <span>{new Date().getFullYear()}</span> glmu.cc. All rights reserved.</span>
           </div>
-          <div className="flex space-x-6">
-            <span>Corporate Registries: EU • VAT <button onClick={fetchVatData} className="underline decoration-stone-300 hover:decoration-stone-600 focus:outline-none transition-colors cursor-pointer text-stone-600 hover:text-stone-900 font-mono font-semibold" aria-label="Verify VAT IT06158220654 via VIES">IT06158220654</button></span>
+          <div>
+            <span>VAT No. <button onClick={fetchVatData} className="underline decoration-stone-300 hover:decoration-stone-600 focus:outline-none transition-colors cursor-pointer text-stone-600 hover:text-stone-900 font-mono font-semibold" aria-label="Verify VAT 06158220654 via VIES">06158220654</button> &middot; Registered in Italy &middot; <button onClick={() => setPrivacyModalOpen(true)} className="underline decoration-stone-300 hover:decoration-stone-600 focus:outline-none transition-colors cursor-pointer text-stone-600 hover:text-stone-900">Privacy Policy</button></span>
           </div>
         </div>
       </footer>
@@ -963,6 +971,13 @@ export default function App() {
       {vatModalOpen && (
         <Suspense fallback={null}>
           <VatModal data={vatData} onClose={() => setVatModalOpen(false)} />
+        </Suspense>
+      )}
+
+      {/* PRIVACY POLICY MODAL (lazy-loaded via code-split) */}
+      {privacyModalOpen && (
+        <Suspense fallback={null}>
+          <PrivacyModal onClose={() => setPrivacyModalOpen(false)} />
         </Suspense>
       )}
     </div>
