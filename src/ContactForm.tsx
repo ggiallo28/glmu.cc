@@ -42,7 +42,7 @@ export default function ContactForm() {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         access_key: 'fb54103d-ecd4-4450-ad37-917b5f07c558',
-        subject: 'New Corporate Inquiry — GLMU Consulting',
+        subject: 'New Corporate Inquiry — GLMU Systems',
         name,
         company,
         email,

@@ -1,5 +1,15 @@
 // WebMCP initialization - IIFE (DOM is ready whether loaded eagerly or lazily)
 (function() {
+  // The library's constructor calls _checkStoredToken(), which auto-reconnects
+  // using any leftover sessionStorage token from a previous visit/tab. Since this
+  // script only loads once per page view (lazy, on click), a stale/expired token
+  // from an earlier session surfaces as an "invalid token" error on the very first
+  // connect attempt, before the user has even pasted their fresh one. Clear it so
+  // every lazy-load starts from a clean state - the user always pastes manually.
+  ['webmcp_token', 'webmcp_tools', 'webmcp_prompts', 'webmcp_resources'].forEach(function(k) {
+    try { sessionStorage.removeItem(k); } catch (e) {}
+  });
+
   var mcp = new WebMCP({ color: '#292524', size: '24px', padding: '0' });
 
   // Scrolls a section into view, aligned to its top, so a human watching the

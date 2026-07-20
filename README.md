@@ -11,7 +11,7 @@
 
 **Sovereign Cloud Architectures. Enterprise AI & Enablement.**
 
-Premium cloud consulting boutique. Designing and delivering secure, multi-tenant architectures and professional generative AI environments.
+Premium cloud architecture and engineering practice. Designing and delivering secure, multi-tenant architectures and professional generative AI environments.
 
 → [gianlu@glmu.cc](mailto:gianlu@glmu.cc) · [LinkedIn](https://linkedin.com/in/ggiallo28) · [GitHub](https://github.com/ggiallo28) · [Blog](https://gmucciolo.it/)
 
@@ -110,7 +110,7 @@ Deliverables:
 
 ### Institutional Trust
 
-> *"GLMU Consulting restructured core spatial intelligence platform boundaries. Their focus on automated resource containment metrics saved significant operational overhead."*
+> *"GLMU Systems restructured core spatial intelligence platform boundaries. Their focus on automated resource containment metrics saved significant operational overhead."*
 > **— VP of Telecommunications, TELCO GLOBAL EUROPE**
 
 > *"Training execution is exemplary. Having key systems builders taught directly by Champion-level instructors has established complete internal deployment autonomy."*
@@ -132,7 +132,7 @@ Initiate a case review regarding compliance boundaries or technical training req
 ---
 
 ```
-GLMU Consulting  © 2026 glmu.cc  ·  Corporate Registries: EU
+GLMU Systems  © 2026 glmu.cc  ·  Corporate Registries: EU
 ```
 
 ---
