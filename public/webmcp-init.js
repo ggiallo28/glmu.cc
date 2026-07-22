@@ -321,7 +321,7 @@
     },
     {
       name: 'get_contact',
-      description: 'Get contact information and social links for GLMU Consulting',
+      description: 'Get contact information and social links for GLMU Systems',
       inputSchema: { type: 'object', properties: {} },
       execute: function() {
         var contact = { email: 'gianlu@glmu.cc', vat: 'IT06158220654', location: 'Italy, serving EU networks', linkedin: 'https://linkedin.com/in/ggiallo28', github: 'https://github.com/ggiallo28', blog: 'https://gmucciolo.it/' };
@@ -332,7 +332,7 @@
     },
     {
       name: 'get_competencies',
-      description: 'Get core technical competencies offered by GLMU Consulting',
+      description: 'Get core technical competencies offered by GLMU Systems',
       inputSchema: { type: 'object', properties: {} },
       execute: function() {
         var competencies = [
@@ -627,13 +627,13 @@
   // Prompts
   mcp.registerPrompt(
     'site-summary',
-    'Summarize what GLMU Consulting does',
+    'Summarize what GLMU Systems does',
     [],
     function() {
       return {
         messages: [{
           role: 'user',
-          content: { type: 'text', text: 'Summarize the services and expertise of GLMU Consulting based on the website content.' }
+          content: { type: 'text', text: 'Summarize the services and expertise of GLMU Systems based on the website content.' }
         }]
       };
     }
@@ -707,19 +707,24 @@
     // can push the 250px panel past the viewport edge on narrow screens. Position
     // it fixed instead, clamped inside the viewport, preferring above the anchor.
     var panelEl = widget.querySelector('.webmcp-content');
+    var EDGE_MARGIN = 16;
     var positionPanel = function() {
       if (!panelEl || panelEl.style.display === 'none') return;
       var rect = anchorEl.getBoundingClientRect();
       panelEl.style.position = 'fixed';
       panelEl.style.zIndex = '9999';
       panelEl.style.bottom = 'auto';
-      var w = panelEl.offsetWidth || 250;
+      // On narrow screens (< 282px of usable width), shrink the panel itself
+      // rather than letting the clamp squeeze its margins to nothing.
+      var maxW = window.innerWidth - EDGE_MARGIN * 2;
+      panelEl.style.width = maxW < 250 ? maxW + 'px' : '';
+      var w = panelEl.offsetWidth || Math.min(250, maxW);
       var h = panelEl.offsetHeight || 260;
-      var left = Math.min(Math.max(8, rect.right - w), window.innerWidth - w - 8);
-      var top = rect.top - h - 8;
-      if (top < 8) top = Math.min(rect.bottom + 8, window.innerHeight - h - 8);
+      var left = Math.min(Math.max(EDGE_MARGIN, rect.right - w), window.innerWidth - w - EDGE_MARGIN);
+      var top = rect.top - h - EDGE_MARGIN;
+      if (top < EDGE_MARGIN) top = Math.min(rect.bottom + EDGE_MARGIN, window.innerHeight - h - EDGE_MARGIN);
       panelEl.style.left = left + 'px';
-      panelEl.style.top = Math.max(8, top) + 'px';
+      panelEl.style.top = Math.max(EDGE_MARGIN, top) + 'px';
     };
     // Reposition after the library toggles the panel (our listener runs after
     // theirs since it was registered later), and keep it anchored while open.

@@ -102,7 +102,7 @@ export default function VatModal({
                       Trading Name
                     </span>
                     <p className="text-xs font-semibold text-stone-900">
-                      GLMU
+                      GLMU Systems
                     </p>
                   </div>
                 </div>
