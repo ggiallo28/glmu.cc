@@ -362,7 +362,7 @@ export default function App() {
       <section className="relative py-20 sm:py-28 border-b border-stone-200/60 overflow-hidden scroll-mt-20" id="glmu-hero">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center relative z-10">
           <span className="inline-block px-3 py-1 rounded bg-stone-100 text-stone-800 font-mono text-[10px] uppercase tracking-widest mb-4 font-medium">
-            Data Driven Architecture
+            Expertise is Common. Synthesis is Rare.
           </span>
           <h1 className="font-display text-3xl sm:text-5xl font-normal tracking-tight text-stone-950 mb-6 leading-[1.15]">
             Untangling Technical Tradeoffs.<br />
@@ -425,7 +425,11 @@ export default function App() {
       <section className="py-20 border-b border-stone-200/60 bg-white scroll-mt-20" id="expertise">
         <div className="max-w-4xl mx-auto px-6 sm:px-8">
           <div className="mb-14">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Practice Streams</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-stone-600 font-medium">Practice Streams</span>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 font-medium">/</span>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 font-medium">Data Driven Architecture</span>
+            </div>
             <h2 className="font-display text-2xl font-normal text-stone-900 mt-1">
               Core Technical Competencies
             </h2>
